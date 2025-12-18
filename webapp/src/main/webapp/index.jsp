@@ -125,7 +125,7 @@ body {
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <div class="logo">Sandy Dan</div>
+    <div class="logo">Sandepp Dan</div>
     <div class="nav-links">
         <a href="#hero">Home</a>
         <a href="#about">About</a>
