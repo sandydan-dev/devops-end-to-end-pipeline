@@ -1,214 +1,270 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>DevOps Engineer | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ================= GLOBAL ================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Segoe UI,Arial,sans-serif;
+  background:#02040a;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-body {
-  background: radial-gradient(circle at top, #0a0f1f, #02040a);
-  color: #fff;
-  overflow-x: hidden;
-}
-
-/* ================= BACKGROUND PIPELINE ================= */
-.pipeline {
-  position: fixed;
-  inset: 0;
+/* ================= BACKGROUND ANIMATION ================= */
+.bg-grid{
+  position:fixed;
+  inset:0;
   background:
-    linear-gradient(90deg, rgba(0,229,255,0.08) 1px, transparent 1px),
-    linear-gradient(rgba(0,229,255,0.08) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: moveGrid 30s linear infinite;
-  z-index: -2;
+    linear-gradient(90deg,rgba(0,229,255,.08) 1px,transparent 1px),
+    linear-gradient(rgba(0,229,255,.08) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridMove 35s linear infinite;
+  z-index:-1;
 }
-
-@keyframes moveGrid {
-  from { background-position: 0 0; }
-  to { background-position: 800px 800px; }
+@keyframes gridMove{
+  from{background-position:0 0}
+  to{background-position:800px 800px}
 }
 
 /* ================= HEADER ================= */
-header {
-  padding: 40px;
-  text-align: center;
+header{
+  position:sticky;
+  top:0;
+  background:rgba(2,4,10,.8);
+  backdrop-filter:blur(6px);
+  padding:16px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:100;
 }
-
-header h1 {
-  font-size: 48px;
-  background: linear-gradient(90deg, #00e5ff, #6cff95);
-  -webkit-background-clip: text;
-  color: transparent;
+header h1{
+  font-size:22px;
+  color:#00e5ff;
 }
-
-header p {
-  margin-top: 10px;
-  font-size: 18px;
-  opacity: 0.8;
+nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:#ccc;
+  font-size:14px;
 }
-
-/* ================= ORBIT ================= */
-.orbit-container {
-  position: relative;
-  width: 420px;
-  height: 420px;
-  margin: 80px auto;
-}
-
-.orbit {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  animation: rotate 25s linear infinite;
-}
-
-.orbit:nth-child(2) { animation-duration: 35s; }
-.orbit:nth-child(3) { animation-duration: 45s; }
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.tech {
-  position: absolute;
-  width: 42px;
-  height: 42px;
-  filter: drop-shadow(0 0 12px #00e5ff);
-}
-
-.tech svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* ================= ICON POSITIONS ================= */
-.tech:nth-child(1){top:-10px;left:50%}
-.tech:nth-child(2){top:25%;right:-10px}
-.tech:nth-child(3){bottom:-10px;left:50%}
-.tech:nth-child(4){top:25%;left:-10px}
-.tech:nth-child(5){top:50%;right:-10px}
-.tech:nth-child(6){bottom:25%;right:-10px}
-.tech:nth-child(7){bottom:25%;left:-10px}
-.tech:nth-child(8){top:50%;left:-10px}
-.tech:nth-child(9){top:-10px;right:25%}
-
-/* ================= CENTER ================= */
-.center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.center div {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #00e5ff, #005c7a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: 0 0 40px #00e5ff;
-}
+nav a:hover{color:#00e5ff}
 
 /* ================= SECTIONS ================= */
-section {
-  max-width: 1000px;
-  margin: 80px auto;
-  padding: 20px;
-  text-align: center;
+section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:100px 20px;
+}
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  animation:fadeIn .8s forwards;
+}
+@keyframes fadeIn{
+  to{opacity:1;transform:none}
 }
 
-section h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #00e5ff;
+/* ================= HERO ================= */
+.hero{
+  text-align:center;
+  padding-top:140px;
+}
+.hero h2{
+  font-size:46px;
+  background:linear-gradient(90deg,#00e5ff,#6cff95);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  margin:20px 0;
+  font-size:18px;
+  opacity:.85;
+}
+.btn{
+  display:inline-block;
+  margin:10px;
+  padding:14px 36px;
+  border-radius:40px;
+  background:linear-gradient(90deg,#00e5ff,#6cff95);
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
+  box-shadow:0 0 25px #00e5ff;
+}
+.btn:hover{transform:scale(1.08)}
+
+/* ================= SKILLS ================= */
+.skills{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;
+  text-align:center;
+}
+.skill{
+  padding:20px;
+  background:rgba(255,255,255,.03);
+  border-radius:12px;
+  animation:pulse 6s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 10px rgba(0,229,255,.2)}
+  50%{box-shadow:0 0 25px rgba(0,229,255,.6)}
 }
 
-section p {
-  font-size: 18px;
-  line-height: 1.7;
-  opacity: 0.85;
+/* ================= PIPELINE ================= */
+.pipeline{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+.pipe{
+  padding:14px 22px;
+  border-radius:30px;
+  background:#0b1a26;
+  border:1px solid #00e5ff;
+  animation:flow 4s infinite alternate;
+}
+@keyframes flow{
+  from{transform:translateY(0)}
+  to{transform:translateY(-8px)}
 }
 
-/* ================= BUTTON ================= */
-.btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 15px 40px;
-  border-radius: 40px;
-  background: linear-gradient(90deg, #00e5ff, #6cff95);
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 0 30px #00e5ff;
-  transition: transform .3s;
+/* ================= PROJECTS ================= */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
 }
+.project{
+  background:rgba(255,255,255,.03);
+  padding:22px;
+  border-radius:14px;
+}
+.project h3{color:#00e5ff}
 
-.btn:hover {
-  transform: scale(1.1);
-}
+/* ================= CONTACT ================= */
+.contact p{margin:10px 0}
 
 /* ================= FOOTER ================= */
-footer {
-  padding: 40px;
-  text-align: center;
-  opacity: 0.6;
+footer{
+  text-align:center;
+  padding:40px;
+  opacity:.6;
+  font-size:14px;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .hero h2{font-size:34px}
+  header{flex-direction:column}
+  nav{margin-top:10px}
 }
 </style>
 </head>
 
 <body>
-
-<div class="pipeline"></div>
+<div class="bg-grid"></div>
 
 <header>
   <h1>DevOps Engineer</h1>
-  <p>CI/CD • Cloud • Automation • Kubernetes • Infrastructure as Code</p>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#pipeline">CI/CD</a>
+    <a href="#projects">Projects</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
-<div class="orbit-container">
-
-  <div class="orbit">
-    <div class="tech"><svg fill="#FCC624" viewBox="0 0 256 256"><circle cx="128" cy="128" r="120"/></svg></div>
-    <div class="tech"><svg fill="#fff" viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9"/></svg></div>
-    <div class="tech"><svg fill="#2496ED" viewBox="0 0 256 256"><rect x="32" y="112" width="192" height="80"/></svg></div>
-    <div class="tech"><svg fill="#D24939" viewBox="0 0 256 256"><circle cx="128" cy="64" r="32"/></svg></div>
-    <div class="tech"><svg fill="#EE0000" viewBox="0 0 256 256"><circle cx="128" cy="128" r="120"/></svg></div>
-    <div class="tech"><svg fill="#7B42BC" viewBox="0 0 256 256"><rect x="40" y="40" width="80" height="80"/></svg></div>
-    <div class="tech"><svg fill="#326CE5" viewBox="0 0 256 256"><circle cx="128" cy="128" r="120"/></svg></div>
-    <div class="tech"><svg fill="#FF9900" viewBox="0 0 256 256"><path d="M64 144h128"/></svg></div>
-    <div class="tech"><svg fill="#0078D4" viewBox="0 0 256 256"><polygon points="64,224 128,32 192,224"/></svg></div>
-  </div>
-
-  <div class="center">
-    <div>CI / CD<br/>PIPELINE</div>
-  </div>
-</div>
-
-<section>
-  <h2>About Me</h2>
-  <p>
-    DevOps Engineer specializing in automated CI/CD pipelines, cloud-native
-    infrastructure, Kubernetes orchestration, and DevSecOps practices.
-  </p>
+<section id="home" class="hero fade">
+  <h2>Automating CI/CD & Cloud Infrastructure</h2>
+  <p>AWS • Kubernetes • Docker • Jenkins • Terraform • Ansible</p>
+  <a class="btn" href="#projects">View Projects</a>
   <a class="btn" href="resume.pdf" download>Download Resume</a>
 </section>
 
+<section id="about" class="fade">
+  <h2>About Me</h2>
+  <p>
+    DevOps Engineer focused on building scalable CI/CD pipelines,
+    automating infrastructure, container orchestration, and
+    ensuring reliability across cloud-native systems.
+  </p>
+</section>
+
+<section id="skills" class="fade">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill">Linux</div>
+    <div class="skill">GitHub</div>
+    <div class="skill">Docker</div>
+    <div class="skill">Kubernetes</div>
+    <div class="skill">Jenkins</div>
+    <div class="skill">Ansible</div>
+    <div class="skill">Terraform</div>
+    <div class="skill">AWS</div>
+    <div class="skill">Azure</div>
+    <div class="skill">Prometheus</div>
+    <div class="skill">Grafana</div>
+  </div>
+</section>
+
+<section id="pipeline" class="fade">
+  <h2>CI/CD Pipeline</h2>
+  <div class="pipeline">
+    <div class="pipe">Git</div>
+    <div class="pipe">Jenkins</div>
+    <div class="pipe">Maven</div>
+    <div class="pipe">Docker</div>
+    <div class="pipe">Kubernetes</div>
+    <div class="pipe">Monitoring</div>
+  </div>
+</section>
+
+<section id="projects" class="fade">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <h3>End-to-End CI/CD Pipeline</h3>
+      <p>Automated build, test, Docker image creation, and Kubernetes deployment using Jenkins.</p>
+    </div>
+    <div class="project">
+      <h3>Infrastructure as Code</h3>
+      <p>Provisioned AWS infrastructure using Terraform and Ansible.</p>
+    </div>
+    <div class="project">
+      <h3>Monitoring Stack</h3>
+      <p>Implemented Prometheus and Grafana for observability.</p>
+    </div>
+  </div>
+</section>
+
+<section id="resume" class="fade">
+  <h2>Resume</h2>
+  <a class="btn" href="resume.pdf" download>Download Resume (PDF)</a>
+</section>
+
+<section id="contact" class="contact fade">
+  <h2>Contact</h2>
+  <p>📧 Email: yourmail@example.com</p>
+  <p>📱 Mobile: +91-XXXXXXXXXX</p>
+  <p>🔗 GitHub: github.com/yourname</p>
+  <p>🔗 LinkedIn: linkedin.com/in/yourname</p>
+</section>
+
 <footer>
-  © 2025 DevOps Engineer Portfolio
+  © 2025 DevOps Engineer | Built with JSP • Maven • Tomcat
 </footer>
 
 </body>
