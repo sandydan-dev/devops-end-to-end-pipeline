@@ -25,7 +25,7 @@ body { font-family: 'Poppins', sans-serif; height:100vh; background: linear-grad
 .hero-text .btn-resume { margin-top:30px; padding:14px 32px; border:none; background:#00eaff; color:#000; font-size:16px; font-weight:600; border-radius:30px; cursor:pointer; transition:0.3s; text-decoration:none; display:inline-block; }
 .hero-text .btn-resume:hover { transform: scale(1.1); }
 
-#animation-canvas { width: 500px; max-width: 90vw; height: 500px; }
+#animation-canvas { width: 500px; max-width: 90vw; height: 500px; cursor: grab; }
 
 @keyframes slideIn { from { opacity:0; transform:translateX(-80px); } to { opacity:1; transform:translateX(0); } }
 
@@ -46,7 +46,7 @@ body { font-family: 'Poppins', sans-serif; height:100vh; background: linear-grad
 
 <div class="hero">
     <div class="hero-text">
-        <h1>Build. Deploy. <i>Automate.</i></h1>
+	    <h1> Plan.  Build. Deploy. <i>Automate.</i></h1>
         <p>Modern DevOps platform integrating CI/CD pipelines, cloud automation, container orchestration, and monitoring — all in one place.</p>
         <a href="resume.pdf" download class="btn-resume">Download Resume</a>
     </div>
@@ -59,33 +59,63 @@ body { font-family: 'Poppins', sans-serif; height:100vh; background: linear-grad
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/loaders/FontLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/geometries/TextGeometry.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/loaders/TextureLoader.js"></script>
 
 <script>
+// ================== SETUP ==================
 const container = document.getElementById('animation-canvas');
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000);
 
+// CAMERA
 const camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 1000);
 camera.position.set(0, 5, 25);
 
+// RENDERER
 const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
 renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
-// Lights
+// CONTROLS
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// LIGHTS
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(10, 20, 20);
 scene.add(pointLight);
 
-// Earth
+// ================== EARTH WITH TEXTURE + GLOW ==================
+const textureLoader = new THREE.TextureLoader();
+const earthTexture = textureLoader.load('https://threejs.org/examples/textures/earth_atmos_2048.jpg'); // realistic Earth
+const earthBump = textureLoader.load('https://threejs.org/examples/textures/earthbump1k.jpg');
+
 const earthGeo = new THREE.SphereGeometry(5,64,64);
-const earthMat = new THREE.MeshPhongMaterial({ color:0x2266ff, shininess:30, emissive:0x112244, emissiveIntensity:0.6 });
+const earthMat = new THREE.MeshPhongMaterial({
+    map: earthTexture,
+    bumpMap: earthBump,
+    bumpScale: 0.05,
+    shininess: 15,
+    emissive: 0x112244,
+    emissiveIntensity: 0.2
+});
 const earth = new THREE.Mesh(earthGeo, earthMat);
 scene.add(earth);
 
-// Stars
+// Glow effect (soft emissive sphere)
+const glowGeo = new THREE.SphereGeometry(5.1, 64, 64);
+const glowMat = new THREE.MeshBasicMaterial({
+    color: 0x00aaff,
+    transparent: true,
+    opacity: 0.1
+});
+const glow = new THREE.Mesh(glowGeo, glowMat);
+scene.add(glow);
+
+// ================== STARS ==================
 const starGeo = new THREE.BufferGeometry();
 const starVertices = [];
 for(let i=0;i<3000;i++){
@@ -94,19 +124,23 @@ for(let i=0;i<3000;i++){
     starVertices.push((Math.random()-0.5)*2000);
 }
 starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVertices,3));
-const stars = new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xffffff}));
+const stars = new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xffffff, size:1}));
 scene.add(stars);
 
-// Orbiting DevOps tools
+// ================== ORBITING TOOLS ==================
 const loader = new THREE.FontLoader();
 const orbitTexts = [];
 const tools = ['Docker','Kubernetes','Jenkins','Terraform','GitHub'];
 
 loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font){
     tools.forEach((tool,index)=>{
-        const textGeo = new THREE.TextGeometry(tool,{ font:font, size:0.7, height:0.1 });
-        const textMat = new THREE.MeshBasicMaterial({ color: Math.random()*0xffffff });
-        const mesh = new THREE.Mesh(textGeo,textMat);
+        const textGeo = new THREE.TextGeometry(tool,{
+            font: font,
+            size: 0.7,
+            height: 0.1
+        });
+        const textMat = new THREE.MeshStandardMaterial({ color: Math.random()*0xffffff });
+        const mesh = new THREE.Mesh(textGeo, textMat);
         const distance = 8 + index*2;
         const angle = Math.random()*Math.PI*2;
         orbitTexts.push({mesh,distance,angle,speed:0.002+Math.random()*0.003});
@@ -114,16 +148,33 @@ loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json
     });
 });
 
-// Controls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
+// ================== RAYCASTER FOR HOVER ==================
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let INTERSECTED = null;
 
-// Animate
+function onMouseMove(event){
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width)*2 -1;
+    mouse.y = -((event.clientY - rect.top)/rect.height)*2 +1;
+}
+window.addEventListener('mousemove', onMouseMove, false);
+
+// ================== ANIMATION ==================
 function animate(){
     requestAnimationFrame(animate);
-    earth.rotation.y += 0.002;
 
+    // Rotate Earth
+    earth.rotation.y += 0.002;
+    glow.rotation.y += 0.001;
+
+    // Move stars slowly
+    starGeo.attributes.position.array.forEach((v,i)=>{ 
+        starGeo.attributes.position.array[i] += 0.0005*(Math.random()-0.5);
+    });
+    starGeo.attributes.position.needsUpdate = true;
+
+    // Orbit texts
     orbitTexts.forEach(obj=>{
         obj.angle += obj.speed;
         obj.mesh.position.set(
@@ -133,18 +184,35 @@ function animate(){
         );
     });
 
+    // Hover effect
+    raycaster.setFromCamera(mouse,camera);
+    const intersects = raycaster.intersectObjects(orbitTexts.map(o=>o.mesh));
+    if(intersects.length>0){
+        if(INTERSECTED != intersects[0].object){
+            if(INTERSECTED) INTERSECTED.material.color.set(INTERSECTED.userData.originalColor);
+            INTERSECTED = intersects[0].object;
+            INTERSECTED.userData = INTERSECTED.userData || {};
+            INTERSECTED.userData.originalColor = INTERSECTED.material.color.getHex();
+            INTERSECTED.material.color.set(0xff00ff);
+        }
+    } else {
+        if(INTERSECTED) INTERSECTED.material.color.set(INTERSECTED.userData.originalColor);
+        INTERSECTED = null;
+    }
+
     controls.update();
     renderer.render(scene,camera);
 }
 animate();
 
-// Responsive
+// ================== RESIZE ==================
 window.addEventListener('resize', ()=>{
     camera.aspect = container.clientWidth/container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
 });
 </script>
+
 </body>
 </html>
 
