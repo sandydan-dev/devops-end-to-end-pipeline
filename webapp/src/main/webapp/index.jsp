@@ -3,145 +3,128 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DevOps Portfolio</title>
+<title>CSS Solar System</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Poppins', sans-serif; height:100vh; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color:#fff; overflow:hidden; }
-
-/* NAVBAR */
-.navbar { display:flex; justify-content:space-between; padding:20px 60px; position:relative; z-index:10; }
-.logo { font-size:24px; font-weight:700; letter-spacing:1px; }
-.nav-links a { margin-left:30px; text-decoration:none; color:#fff; font-weight:400; transition:0.3s; }
-.nav-links a:hover { color:#00eaff; }
-
-/* HERO */
-.hero { display:flex; flex-direction:row; height:calc(100vh - 80px); align-items:center; justify-content:space-between; padding:0 5%; position:relative; }
-
-.hero-text { max-width:550px; animation: slideIn 1.2s ease-out; }
-.hero-text h1 { font-size:48px; font-weight:700; }
-.hero-text h1 span { color:#00eaff; }
-.hero-text p { margin-top:20px; font-size:18px; line-height:1.6; opacity:0.9; }
-.hero-text .btn-resume { margin-top:30px; padding:14px 32px; border:none; background:#00eaff; color:#000; font-size:16px; font-weight:600; border-radius:30px; cursor:pointer; transition:0.3s; text-decoration:none; display:inline-block; }
-.hero-text .btn-resume:hover { transform: scale(1.1); }
-
-/* HERO ANIMATION CONTAINER */
-.animation-container {
-    position: relative;
-    width: 500px;
-    height: 500px;
+body {
+    height:100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* Earth */
-.earth {
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle at 30% 30%, #2266ff, #112244);
+/* Stars */
+.star {
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle { from { opacity:0.2; } to { opacity:1; } }
+
+/* Solar system container */
+.solar-system {
+    position: relative;
+    width: 800px;
+    height: 800px;
+}
+
+/* Sun */
+.sun {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at center, #ffdd00, #ffaa00);
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: spin 10s linear infinite;
-    box-shadow: 0 0 30px rgba(0, 170, 255, 0.5);
+    box-shadow: 0 0 50px #ffaa00, 0 0 100px #ffdd00;
 }
 
-/* Orbiting tools */
+/* Planet orbits */
 .orbit {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform-origin: center center;
-    animation: rotateOrbit linear infinite;
-}
-
-.orbit span {
-    display: block;
-    position: absolute;
-    top: -10px;
-    left: 100px; /* distance from center */
-    font-weight: 600;
-    color: #fff;
-    transition: 0.3s;
-}
-
-.orbit span:hover {
-    color: #ff00ff;
-    transform: scale(1.2);
-}
-
-/* Stars */
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #fff;
+    border: 1px dashed rgba(255,255,255,0.2);
     border-radius: 50%;
-    animation: twinkle 2s infinite alternate;
+    transform: translate(-50%, -50%);
 }
 
-@keyframes spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+/* Orbit animation */
+.orbit .planet {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #888, #444);
 }
 
-@keyframes rotateOrbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+/* Animations for planets */
+.planet1 { width:8px; height:8px; animation: orbit1 5s linear infinite; }
+.planet2 { width:14px; height:14px; animation: orbit2 8s linear infinite; }
+.planet3 { width:12px; height:12px; animation: orbit3 11s linear infinite; }
+.planet4 { width:20px; height:20px; animation: orbit4 15s linear infinite; }
+.planet5 { width:30px; height:30px; animation: orbit5 20s linear infinite; }
+.planet6 { width:25px; height:25px; animation: orbit6 25s linear infinite; }
+.planet7 { width:18px; height:18px; animation: orbit7 30s linear infinite; }
+.planet8 { width:16px; height:16px; animation: orbit8 35s linear infinite; }
+.planet9 { width:10px; height:10px; animation: orbit9 40s linear infinite; }
 
-@keyframes twinkle {
-    from { opacity: 0.2; }
-    to { opacity: 1; }
-}
+/* Individual orbit radii */
+.orbit1 { width: 120px; height: 120px; }
+.orbit2 { width: 160px; height: 160px; }
+.orbit3 { width: 200px; height: 200px; }
+.orbit4 { width: 250px; height: 250px; }
+.orbit5 { width: 320px; height: 320px; }
+.orbit6 { width: 400px; height: 400px; }
+.orbit7 { width: 480px; height: 480px; }
+.orbit8 { width: 550px; height: 550px; }
+.orbit9 { width: 620px; height: 620px; }
 
-@keyframes slideIn {
-    from { opacity:0; transform:translateX(-80px); }
-    to { opacity:1; transform:translateX(0); }
-}
+/* Orbit animations */
+@keyframes orbit1 { 0% { transform: rotate(0deg) translateX(60px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); } }
+@keyframes orbit2 { 0% { transform: rotate(0deg) translateX(80px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); } }
+@keyframes orbit3 { 0% { transform: rotate(0deg) translateX(100px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); } }
+@keyframes orbit4 { 0% { transform: rotate(0deg) translateX(125px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(125px) rotate(-360deg); } }
+@keyframes orbit5 { 0% { transform: rotate(0deg) translateX(160px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(160px) rotate(-360deg); } }
+@keyframes orbit6 { 0% { transform: rotate(0deg) translateX(200px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); } }
+@keyframes orbit7 { 0% { transform: rotate(0deg) translateX(240px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(240px) rotate(-360deg); } }
+@keyframes orbit8 { 0% { transform: rotate(0deg) translateX(275px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(275px) rotate(-360deg); } }
+@keyframes orbit9 { 0% { transform: rotate(0deg) translateX(310px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(310px) rotate(-360deg); } }
 
-/* FOOTER */
-.footer { position:absolute; bottom:20px; width:100%; text-align:center; font-size:14px; opacity:0.7; }
 </style>
 </head>
-
 <body>
-<div class="navbar">
-    <div class="logo">DevOpsHub</div>
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Projects</a>
-        <a href="#">CI/CD</a>
-        <a href="#">Contact</a>
-    </div>
+
+<div class="solar-system">
+
+    <!-- Sun -->
+    <div class="sun"></div>
+
+    <!-- Planets -->
+    <div class="orbit orbit1"><div class="planet planet1"></div></div>
+    <div class="orbit orbit2"><div class="planet planet2"></div></div>
+    <div class="orbit orbit3"><div class="planet planet3"></div></div>
+    <div class="orbit orbit4"><div class="planet planet4"></div></div>
+    <div class="orbit orbit5"><div class="planet planet5"></div></div>
+    <div class="orbit orbit6"><div class="planet planet6"></div></div>
+    <div class="orbit orbit7"><div class="planet planet7"></div></div>
+    <div class="orbit orbit8"><div class="planet planet8"></div></div>
+    <div class="orbit orbit9"><div class="planet planet9"></div></div>
+
+    <!-- Stars -->
+    <% for(int i=0;i<50;i++){ %>
+        <div class="star" style="top:<%=Math.random()*800%>px; left:<%=Math.random()*800%>px;"></div>
+    <% } %>
+
 </div>
-
-<div class="hero">
-    <div class="hero-text">
-        <h1>Build. Deploy. <i>Automate.</i></h1>
-        <p>Modern DevOps platform integrating CI/CD pipelines, cloud automation, container orchestration, and monitoring — all in one place.</p>
-        <a href="resume.pdf" download class="btn-resume">Download Resume</a>
-    </div>
-
-    <div class="animation-container">
-        <!-- Stars -->
-        <%-- Generate stars in JSP --%>
-        <% for(int i=0;i<50;i++){ %>
-            <div class="star" style="top:<%=Math.random()*500%>px; left:<%=Math.random()*500%>px;"></div>
-        <% } %>
-
-        <!-- Earth -->
-        <div class="earth"></div>
-
-        <!-- Orbiting tools -->
-        <div class="orbit" style="animation-duration:12s;"><span>Docker</span></div>
-        <div class="orbit" style="animation-duration:16s;"><span>Kubernetes</span></div>
-        <div class="orbit" style="animation-duration:20s;"><span>Jenkins</span></div>
-        <div class="orbit" style="animation-duration:14s;"><span>Terraform</span></div>
-        <div class="orbit" style="animation-duration:18s;"><span>GitHub</span></div>
-    </div>
-</div>
-
-<div class="footer">© 2025 DevOpsHub | Powered by JSP & Tomcat</div>
 
 </body>
 </html>
