@@ -2,206 +2,264 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DevOps Engineer | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps Engineer | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #0f172a;
-            color: #e5e7eb;
-        }
+<style>
+:root {
+    --primary: #38bdf8;
+    --secondary: #22d3ee;
+    --dark: #020617;
+    --card: #020617;
+    --text: #e5e7eb;
+}
 
-        header {
-            background: linear-gradient(135deg, #1e293b, #020617);
-            padding: 80px 20px;
-            text-align: center;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
 
-        header h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: #38bdf8;
-        }
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #020617, #000);
+    color: var(--text);
+}
 
-        header p {
-            font-size: 20px;
-            color: #cbd5f5;
-        }
+/* ===== HERO SECTION ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
 
-        section {
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin: auto;
-        }
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(56,189,248,0.08) 0,
+            rgba(56,189,248,0.08) 1px,
+            transparent 1px,
+            transparent 60px
+        );
+    animation: moveGrid 20s linear infinite;
+}
 
-        h2 {
-            font-size: 32px;
-            color: #38bdf8;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #1e293b;
-            display: inline-block;
-        }
+@keyframes moveGrid {
+    from { transform: translateX(0); }
+    to { transform: translateX(-60px); }
+}
 
-        .about p {
-            font-size: 18px;
-            line-height: 1.7;
-            color: #d1d5db;
-        }
+.hero-content {
+    z-index: 2;
+    animation: fadeUp 1.5s ease;
+}
 
-        .skills {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .skill-box {
-            background: #020617;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(56,189,248,0.1);
-        }
+.hero h1 {
+    font-size: 56px;
+    color: var(--primary);
+}
 
-        .skill-box h3 {
-            color: #22d3ee;
-            margin-bottom: 10px;
-        }
+.hero span {
+    color: white;
+}
 
-        .projects {
-            margin-top: 30px;
-        }
+.hero p {
+    font-size: 22px;
+    margin: 15px 0 30px;
+    color: #cbd5f5;
+}
 
-        .project {
-            background: #020617;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(56,189,248,0.1);
-        }
+.btn {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--dark);
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform .3s, box-shadow .3s;
+}
 
-        footer {
-            background: #020617;
-            padding: 30px;
-            text-align: center;
-            font-size: 16px;
-            color: #94a3b8;
-        }
+.btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px var(--primary);
+}
 
-        .contact a {
-            color: #38bdf8;
-            text-decoration: none;
-        }
+/* ===== SECTION ===== */
+section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 80px 20px;
+}
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #38bdf8;
-            color: #020617;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-        }
+h2 {
+    font-size: 36px;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
 
-        .btn:hover {
-            background: #0ea5e9;
-        }
-    </style>
+/* ===== CARDS ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: linear-gradient(180deg, #020617, #020617);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(56,189,248,.1);
+    transition: transform .4s, box-shadow .4s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px rgba(56,189,248,.4);
+}
+
+.card h3 {
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+    border-left: 3px solid var(--primary);
+    padding-left: 30px;
+}
+
+.timeline div {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline div::before {
+    content: "";
+    position: absolute;
+    left: -40px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #000;
+    padding: 30px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* ===== FLOATING DEVOPS ICONS ===== */
+.floating {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.floating span {
+    position: absolute;
+    color: var(--primary);
+    opacity: .15;
+    font-size: 24px;
+    animation: float 12s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(110vh) rotate(0deg); }
+    to { transform: translateY(-10vh) rotate(360deg); }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-    <h1>DevOps Engineer</h1>
-    <p>AWS | Docker | Kubernetes | Jenkins | Ansible | Terraform</p>
-    <a href="#contact" class="btn">Contact Me</a>
-</header>
+<!-- FLOATING DEVOPS EFFECT -->
+<div class="floating">
+    <span style="left:10%; animation-duration:14s;">⚙️</span>
+    <span style="left:30%; animation-duration:18s;">☁️</span>
+    <span style="left:50%; animation-duration:16s;">🐳</span>
+    <span style="left:70%; animation-duration:20s;">🚀</span>
+    <span style="left:90%; animation-duration:22s;">📦</span>
+</div>
 
-<section class="about">
-    <h2>About Me</h2>
-    <p>
-        I am a passionate DevOps Engineer focused on automating infrastructure,
-        building scalable CI/CD pipelines, and deploying cloud-native applications.
-        I have hands-on experience with AWS, containerization, configuration management,
-        and Kubernetes orchestration.
-    </p>
-</section>
-
-<section>
-    <h2>DevOps Skills</h2>
-    <div class="skills">
-        <div class="skill-box">
-            <h3>Cloud</h3>
-            <p>AWS EC2, VPC, IAM, S3, Load Balancer</p>
-        </div>
-
-        <div class="skill-box">
-            <h3>CI/CD</h3>
-            <p>Jenkins, GitHub, Maven, SonarQube</p>
-        </div>
-
-        <div class="skill-box">
-            <h3>Containers</h3>
-            <p>Docker, Docker Compose, Kubernetes</p>
-        </div>
-
-        <div class="skill-box">
-            <h3>Configuration</h3>
-            <p>Ansible, Shell Scripting, Linux</p>
-        </div>
-
-        <div class="skill-box">
-            <h3>Infrastructure as Code</h3>
-            <p>Terraform, AWS Automation</p>
-        </div>
-
-        <div class="skill-box">
-            <h3>Monitoring</h3>
-            <p>Prometheus, Grafana</p>
-        </div>
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>DevOps <span>Engineer</span></h1>
+        <p>AWS | Docker | Kubernetes | Jenkins | Terraform | Ansible</p>
+        <a href="#contact" class="btn">Hire Me</a>
     </div>
-</section>
+</div>
 
+<!-- ABOUT -->
 <section>
-    <h2>Projects</h2>
-    <div class="projects">
-        <div class="project">
-            <h3>End-to-End CI/CD Pipeline</h3>
-            <p>
-                Built a complete CI/CD pipeline using GitHub, Jenkins, Maven,
-                Docker, Ansible, and Kubernetes on AWS EC2.
-            </p>
-        </div>
-
-        <div class="project">
-            <h3>Dockerized Java Application</h3>
-            <p>
-                Containerized Java WAR application deployed on Tomcat
-                and orchestrated using Kubernetes.
-            </p>
-        </div>
-
-        <div class="project">
-            <h3>Infrastructure Automation</h3>
-            <p>
-                Automated AWS infrastructure using Terraform and Ansible
-                for repeatable deployments.
-            </p>
-        </div>
-    </div>
+<h2>About Me</h2>
+<p>
+I am a highly motivated DevOps Engineer specializing in cloud infrastructure,
+CI/CD automation, container orchestration, and scalable deployments.
+I design production-grade pipelines and cloud-native solutions.
+</p>
 </section>
 
-<section id="contact" class="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:devops@example.com">devops@example.com</a></p>
-    <p>GitHub: <a href="#">https://github.com/yourusername</a></p>
-    <p>LinkedIn: <a href="#">https://linkedin.com/in/yourprofile</a></p>
+<!-- SKILLS -->
+<section>
+<h2>Core Skills</h2>
+<div class="grid">
+    <div class="card"><h3>Cloud</h3>AWS EC2, VPC, IAM, S3, ALB</div>
+    <div class="card"><h3>CI/CD</h3>Jenkins, GitHub, Maven, SonarQube</div>
+    <div class="card"><h3>Containers</h3>Docker, Kubernetes, Helm</div>
+    <div class="card"><h3>IaC</h3>Terraform, Ansible</div>
+    <div class="card"><h3>Monitoring</h3>Prometheus, Grafana</div>
+    <div class="card"><h3>Security</h3>DevSecOps, Secrets, IAM</div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section>
+<h2>Experience & Projects</h2>
+<div class="timeline">
+    <div>
+        <h3>End-to-End CI/CD Pipeline</h3>
+        <p>Git → Jenkins → Maven → Docker → Kubernetes → AWS</p>
+    </div>
+    <div>
+        <h3>Cloud Infrastructure Automation</h3>
+        <p>Provisioned AWS infrastructure using Terraform & Ansible</p>
+    </div>
+    <div>
+        <h3>Containerized Java Applications</h3>
+        <p>Dockerized WAR apps and deployed on Kubernetes</p>
+    </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: devops@example.com</p>
+<p>GitHub: github.com/yourusername</p>
+<p>LinkedIn: linkedin.com/in/yourprofile</p>
 </section>
 
 <footer>
-    © 2025 DevOps Engineer Portfolio | Built with JSP & Tomcat
+© 2025 DevOps Engineer Portfolio | Powered by JSP & Tomcat
 </footer>
 
 </body>
