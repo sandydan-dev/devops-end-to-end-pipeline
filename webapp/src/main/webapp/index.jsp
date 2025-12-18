@@ -6,29 +6,27 @@
 <title>Sandy Dan Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* ================== GLOBAL ================== */
+/* ================= GLOBAL ================= */
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
     font-family: 'Poppins', sans-serif;
-    color: #fff;
-    background: #0f2027;
-    overflow-x: hidden;
+    color:#fff;
+    background:#0f2027;
+    overflow-x:hidden;
     scroll-behavior: smooth;
 }
 
-/* ================== PARTICLE BACKGROUND ================== */
+/* ================= BACKGROUND PARTICLES ================= */
 .background {
-    position: fixed;
-    top:0; left:0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    overflow: hidden;
+    position: fixed; top:0; left:0;
+    width:100%; height:100%;
+    z-index:-1;
+    overflow:hidden;
 }
 .particle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.2;
-    background: linear-gradient(45deg, #00eaff, #ff00ff);
+    position:absolute; border-radius:50%;
+    opacity:0.2;
+    background: linear-gradient(45deg,#00eaff,#ff00ff);
     animation: float 30s linear infinite;
 }
 @keyframes float {
@@ -37,123 +35,82 @@ body {
     100% { transform: translateY(0) translateX(0) scale(1); }
 }
 
-/* ================== NAVBAR ================== */
+/* ================= NAVBAR ================= */
 .navbar {
-    display:flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-    position: fixed;
-    width: 100%;
-    z-index: 10;
+    display:flex; justify-content: space-between;
+    padding:20px 50px; position: fixed; width:100%; z-index:10;
 }
-.logo { font-size: 24px; font-weight: 700; letter-spacing:1px; }
+.logo { font-size:24px; font-weight:700; letter-spacing:1px; }
 .nav-links a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 400;
-    transition:0.3s;
-    position: relative;
+    margin-left:30px; text-decoration:none; color:#fff; font-weight:400; transition:0.3s; position:relative;
 }
 .nav-links a::after {
-    content:"";
-    position:absolute;
-    width:0;
-    height:2px;
-    left:0; bottom:-4px;
-    background:#00eaff;
-    transition:0.3s;
+    content:""; position:absolute; width:0; height:2px; left:0; bottom:-4px; background:#00eaff; transition:0.3s;
 }
 .nav-links a:hover::after { width:100%; }
 
-/* ================== HERO ================== */
+/* ================= HERO ================= */
 .hero {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    padding: 0 20px;
-    overflow: hidden;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    height:100vh; text-align:center; padding:0 20px; overflow:hidden;
 }
 .hero h1 {
-    font-size: 56px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    opacity:0;
-    transform: translateY(-30px);
-    animation: fadeSlide 1s forwards 0.5s;
+    font-size:56px; font-weight:700; margin-bottom:20px;
+    opacity:0; transform:translateY(-30px); animation: fadeSlide 1s forwards 0.5s;
 }
-.hero h1 span { color: #00eaff; }
+.hero h1 span { color:#00eaff; }
 .hero p {
-    font-size: 20px;
-    opacity:0;
-    transform: translateY(-20px);
-    max-width:600px;
-    margin-bottom: 30px;
+    font-size:20px; opacity:0; transform:translateY(-20px); max-width:600px; margin-bottom:30px;
     animation: fadeSlide 1s forwards 1s;
 }
 .btn-resume {
-    padding:14px 32px;
-    border:none;
-    background:#00eaff;
-    color:#000;
-    font-size:16px;
-    font-weight:600;
-    border-radius:30px;
-    cursor:pointer;
-    text-decoration:none;
+    padding:14px 32px; border:none; background:#00eaff; color:#000;
+    font-size:16px; font-weight:600; border-radius:30px; cursor:pointer; text-decoration:none;
     transition:0.3s, box-shadow 0.3s;
-    opacity:0;
-    transform: translateY(-10px);
-    animation: fadeSlide 1s forwards 1.5s;
+    opacity:0; transform: translateY(-10px); animation: fadeSlide 1s forwards 1.5s;
 }
-.btn-resume:hover { 
-    transform: scale(1.1); 
-    box-shadow: 0 0 20px #00eaff, 0 0 40px #ff00ff;
+.btn-resume:hover { transform: scale(1.1); box-shadow:0 0 20px #00eaff,0 0 40px #ff00ff; }
+
+/* ================= SECTIONS ================= */
+.section { padding:100px 20px; text-align:center; opacity:0; transform:translateY(50px); transition: all 1s ease-out; }
+.section.visible { opacity:1; transform:translateY(0); }
+.section h2 { font-size:36px; margin-bottom:40px; }
+.section p { max-width:700px; margin:0 auto; font-size:18px; opacity:0.85; line-height:1.6; }
+
+/* ================= PROJECTS PIPELINE ================= */
+.pipeline {
+    display:flex; justify-content:center; align-items:center; gap:30px; flex-wrap:wrap; margin-top:30px;
+}
+.stage {
+    position:relative; padding:20px 40px; border-radius:20px;
+    background: rgba(0,255,255,0.1); border:2px solid #00eaff;
+    font-weight:600; letter-spacing:1px;
+    animation: pulse 2s infinite alternate;
+}
+.stage::after {
+    content:""; position:absolute; width:50px; height:4px; background:#00eaff;
+    top:50%; right:-50px; transform:translateY(-50%);
+}
+.stage:last-child::after { display:none; }
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px #00eaff; }
+    50% { box-shadow: 0 0 20px #00eaff; }
+    100% { box-shadow: 0 0 10px #00eaff; }
 }
 
-/* ================== SECTIONS ================== */
-.section {
-    padding:100px 20px;
-    text-align: center;
-    opacity:0;
-    transform: translateY(50px);
-    transition: all 1s ease-out;
-}
-.section.visible {
-    opacity:1;
-    transform: translateY(0);
-}
-.section h2 {
-    font-size:36px;
-    margin-bottom:40px;
-}
-.section p {
-    max-width:700px;
-    margin:0 auto;
-    font-size:18px;
-    opacity:0.85;
-    line-height:1.6;
-}
+/* ================= FOOTER ================= */
+.footer { text-align:center; padding:20px; opacity:0.6; }
 
-/* ================== FOOTER ================== */
-.footer {
-    text-align:center;
-    padding:20px;
-    opacity:0.6;
-}
+/* ================= ANIMATIONS ================= */
+@keyframes fadeSlide { to { opacity:1; transform:translateY(0); } }
 
-/* ================== ANIMATIONS ================== */
-@keyframes fadeSlide {
-    to { opacity:1; transform: translateY(0); }
-}
-
-/* ================== RESPONSIVE ================== */
+/* ================= RESPONSIVE ================= */
 @media(max-width:768px){
     .hero h1 { font-size:40px; }
     .hero p { font-size:16px; }
+    .pipeline { flex-direction:column; gap:20px; }
+    .stage::after { display:none; }
 }
 </style>
 </head>
@@ -192,8 +149,15 @@ body {
 
 <!-- PROJECTS -->
 <div id="projects" class="section">
-    <h2>Projects</h2>
-    <p>Here are some of my recent projects in DevOps and Cloud Automation including CI/CD pipelines, Kubernetes clusters, Docker deployments, and Infrastructure as Code with Terraform.</p>
+    <h2>Projects & CI/CD Pipeline</h2>
+    <div class="pipeline">
+        <div class="stage">CODE</div>
+        <div class="stage">BUILD</div>
+        <div class="stage">TEST</div>
+        <div class="stage">DEPLOY</div>
+        <div class="stage">MONITOR</div>
+    </div>
+    <p style="margin-top:30px;">This pipeline represents a continuous workflow of development, testing, deployment, and monitoring in DevOps projects.</p>
 </div>
 
 <!-- CONTACT -->
@@ -214,9 +178,7 @@ function revealSections(){
     const triggerBottom = window.innerHeight * 0.85;
     sections.forEach(section => {
         const top = section.getBoundingClientRect().top;
-        if(top < triggerBottom){
-            section.classList.add('visible');
-        }
+        if(top < triggerBottom){ section.classList.add('visible'); }
     });
 }
 window.addEventListener('scroll', revealSections);
