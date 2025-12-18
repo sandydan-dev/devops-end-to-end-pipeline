@@ -1,0 +1,11 @@
+# Java build artifacts
+*.war
+*.ear
+*.jar
+
+# Maven
+target/
+
+# Logs
+*.log
+
