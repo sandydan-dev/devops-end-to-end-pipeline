@@ -3,266 +3,223 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DevOps Engineer | CI/CD Portfolio</title>
+<title>DevOps Engineer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 /* ================= RESET ================= */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{
-    width:100%;
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
     height:100%;
-    background:radial-gradient(circle at bottom,#0b1022,#02030a);
-    color:#eaeaff;
-    font-family:'Segoe UI',system-ui,sans-serif;
-    scroll-behavior:smooth;
+    background:#05060f;
+    color:#e6e8ff;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x:hidden;
 }
 
-/* ================= CANVAS ================= */
-canvas{
+/* ================= BACKGROUND ================= */
+.bg {
     position:fixed;
     inset:0;
+    background:
+        radial-gradient(1200px 500px at 50% 100%, #0b0f2a, transparent),
+        radial-gradient(800px 400px at 80% 20%, #120f2f, transparent);
     z-index:-2;
 }
 
 /* ================= HERO ================= */
-.hero{
+.hero {
     min-height:100vh;
-    display:flex;
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
     align-items:center;
-    justify-content:space-between;
-    padding:8%;
-    flex-wrap:wrap;
+    padding:0 8%;
 }
 
-.hero-text{
-    max-width:520px;
+@media (max-width: 900px) {
+    .hero { grid-template-columns:1fr; text-align:center; }
 }
 
-.hero-text h1{
+/* TEXT */
+.hero h1 {
     font-size:3.6rem;
-    background:linear-gradient(90deg,#7c7cff,#00ffd5);
+    line-height:1.1;
+    letter-spacing:-1px;
+}
+
+.hero h1 span {
+    background:linear-gradient(90deg,#7c7cff,#00e5ff);
     -webkit-background-clip:text;
     color:transparent;
 }
 
-.hero-text p{
-    margin-top:20px;
-    color:#b8c1ff;
-    line-height:1.6;
+.hero p {
+    margin-top:24px;
+    max-width:520px;
+    font-size:1.05rem;
+    color:#b9c1ff;
+    line-height:1.7;
 }
 
-.buttons{
-    margin-top:30px;
+.cta {
+    margin-top:36px;
     display:flex;
-    gap:15px;
+    gap:16px;
     flex-wrap:wrap;
 }
 
-.btn{
-    padding:14px 30px;
-    border-radius:30px;
-    border:none;
-    cursor:pointer;
-    font-weight:600;
-    background:linear-gradient(90deg,#7c7cff,#00ffd5);
-    color:#000;
+.cta a {
+    padding:14px 28px;
+    border-radius:999px;
     text-decoration:none;
+    font-weight:500;
+    transition:.2s ease;
 }
 
-.btn-outline{
-    background:transparent;
-    border:1px solid #7c7cff;
-    color:#7c7cff;
+.primary {
+    background:#ffffff;
+    color:#000;
 }
+
+.primary:hover { opacity:.85; }
+
+.secondary {
+    border:1px solid #2a2f6b;
+    color:#cfd3ff;
+}
+
+.secondary:hover { background:#0e1130; }
 
 /* ================= ORBIT ================= */
-.orbit-container{
+.orbit-wrap {
+    position:relative;
     width:420px;
     height:420px;
-    position:relative;
+    margin:auto;
 }
 
-.core{
+.core {
     position:absolute;
     inset:160px;
-    background:radial-gradient(circle,#9b9bff,#4b4bff);
     border-radius:50%;
-    box-shadow:0 0 80px #6f7cff;
+    background:radial-gradient(circle,#ffffff,#8c8cff);
+    box-shadow:0 0 60px rgba(140,140,255,.35);
 }
 
-.orbit{
+/* ORBIT RINGS */
+.ring {
     position:absolute;
     inset:0;
     border-radius:50%;
+    border:1px solid rgba(255,255,255,.08);
     animation:spin linear infinite;
 }
 
-.orbit.one{animation-duration:18s}
-.orbit.two{inset:50px;animation-duration:26s}
-.orbit.three{inset:100px;animation-duration:34s}
+.r1 { animation-duration:24s; }
+.r2 { inset:48px; animation-duration:36s; }
+.r3 { inset:96px; animation-duration:52s; }
 
-.node{
+/* NODES */
+.node {
     position:absolute;
     top:50%;
-    left:-14px;
-    width:28px;
-    height:28px;
+    left:-10px;
+    width:20px;
+    height:20px;
     border-radius:50%;
-    background:#0b1022;
-    border:2px solid #7c7cff;
-    box-shadow:0 0 18px #7c7cff;
+    background:#0b0f2a;
+    border:1px solid #7c7cff;
 }
 
-.node span{
+.node::after {
+    content:attr(data-label);
     position:absolute;
-    top:34px;
-    left:-24px;
-    font-size:12px;
-    color:#9bb1ff;
+    top:26px;
+    left:-18px;
+    font-size:11px;
+    color:#9aa3ff;
     white-space:nowrap;
 }
 
-@keyframes spin{
-    from{transform:rotate(0)}
-    to{transform:rotate(360deg)}
+@keyframes spin {
+    from { transform:rotate(0deg); }
+    to   { transform:rotate(360deg); }
 }
 
 /* ================= SECTIONS ================= */
-section{
+section {
     padding:120px 8%;
 }
 
-h2{
-    font-size:2.4rem;
-    margin-bottom:40px;
-    background:linear-gradient(90deg,#7c7cff,#00ffd5);
-    -webkit-background-clip:text;
-    color:transparent;
+section h2 {
+    font-size:2.2rem;
+    margin-bottom:48px;
+    letter-spacing:-.5px;
 }
 
 /* ================= PIPELINE ================= */
-.pipeline{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
+.pipeline {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:24px;
 }
 
-.stage{
-    flex:1;
-    min-width:160px;
-    background:rgba(255,255,255,.04);
-    padding:30px;
+.stage {
+    padding:28px;
     border-radius:18px;
-    border:1px solid rgba(124,124,255,.3);
-    text-align:center;
-    position:relative;
-}
-
-.stage::after{
-    content:'';
-    position:absolute;
-    bottom:-6px;
-    left:20%;
-    width:60%;
-    height:3px;
-    background:#00ffd5;
-    animation:flow 2s infinite;
-}
-
-@keyframes flow{
-    0%{opacity:.2}
-    50%{opacity:1}
-    100%{opacity:.2}
-}
-
-/* ================= JENKINS POPUP ================= */
-.popup{
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    background:#0f1529;
-    padding:20px 26px;
-    border-radius:14px;
-    border-left:4px solid #00ffd5;
-    box-shadow:0 0 30px rgba(0,255,213,.4);
-    animation:slideIn 1s ease;
-}
-
-@keyframes slideIn{
-    from{transform:translateX(200px);opacity:0}
-    to{transform:translateX(0);opacity:1}
-}
-
-/* ================= K8S ================= */
-.k8s{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.pod{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    border:2px solid #7c7cff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 0 20px #7c7cff;
-    animation:pulse 3s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{transform:scale(.95)}
-    50%{transform:scale(1.05)}
-}
-
-/* ================= GITHUB ================= */
-.github{
-    font-size:1.2rem;
-    color:#9bb1ff;
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(255,255,255,.06);
+    color:#cfd3ff;
 }
 
 /* ================= FOOTER ================= */
-footer{
-    padding:60px;
-    text-align:center;
-    color:#7f8cff;
-}
-
-/* ================= MOBILE ================= */
-@media(max-width:900px){
-    .hero{justify-content:center;text-align:center}
-    .orbit-container{margin-top:60px}
+footer {
+    padding:60px 8%;
+    color:#7f87d6;
+    border-top:1px solid rgba(255,255,255,.06);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="stars"></canvas>
+<div class="bg"></div>
 
 <!-- HERO -->
 <div class="hero">
-    <div class="hero-text">
-        <h1>DevOps Engineer</h1>
+    <div>
+        <h1>
+            DevOps Engineer<br>
+            <span>CI/CD · Cloud · Kubernetes</span>
+        </h1>
+
         <p>
-            Building scalable CI/CD pipelines, cloud infrastructure,
-            Kubernetes platforms, and DevSecOps automation.
+            I design and operate reliable CI/CD platforms, cloud infrastructure,
+            and Kubernetes environments with a focus on automation, security,
+            and scalability.
         </p>
 
-        <div class="buttons">
-            <a href="resume.pdf" class="btn" download>Download Resume</a>
-            <a href="#pipeline" class="btn btn-outline">View Pipeline</a>
+        <div class="cta">
+            <a href="resume.pdf" class="primary" download>Download Resume</a>
+            <a href="#pipeline" class="secondary">View Pipeline</a>
         </div>
     </div>
 
-    <div class="orbit-container">
+    <!-- ORBIT -->
+    <div class="orbit-wrap">
         <div class="core"></div>
-        <div class="orbit one"><div class="node"><span>Git</span></div></div>
-        <div class="orbit two"><div class="node"><span>Jenkins</span></div></div>
-        <div class="orbit three"><div class="node"><span>Kubernetes</span></div></div>
+
+        <div class="ring r1">
+            <div class="node" data-label="Git"></div>
+        </div>
+
+        <div class="ring r2">
+            <div class="node" data-label="CI/CD"></div>
+        </div>
+
+        <div class="ring r3">
+            <div class="node" data-label="Kubernetes"></div>
+        </div>
     </div>
 </div>
 
@@ -270,54 +227,17 @@ footer{
 <section id="pipeline">
     <h2>CI/CD Pipeline</h2>
     <div class="pipeline">
-        <div class="stage">Commit</div>
-        <div class="stage">Build</div>
-        <div class="stage">Security Scan</div>
-        <div class="stage">Docker</div>
-        <div class="stage">Kubernetes</div>
+        <div class="stage">Source Control</div>
+        <div class="stage">Build & Test</div>
+        <div class="stage">Security Scanning</div>
+        <div class="stage">Containerization</div>
+        <div class="stage">Kubernetes Deployment</div>
     </div>
-</section>
-
-<!-- K8S -->
-<section>
-    <h2>Kubernetes Pods</h2>
-    <div class="k8s">
-        <div class="pod">Pod-1</div>
-        <div class="pod">Pod-2</div>
-        <div class="pod">Pod-3</div>
-    </div>
-</section>
-
-<!-- GITHUB -->
-<section>
-    <h2>GitHub Stats</h2>
-    <div class="github" id="githubStats">Loading GitHub stats…</div>
 </section>
 
 <footer>
-    © 2025 DevOps Engineer · CI/CD · Cloud · Automation
+    © 2025 · DevOps Engineer Portfolio
 </footer>
-
-<!-- JENKINS POPUP -->
-<div class="popup">
-    ✅ Jenkins Build #128 SUCCESS
-</div>
-
-<script>
-/* STAR FIELD */
-const c=document.getElementById("stars"),x=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
-let s=[...Array(120)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5}));
-(function a(){x.clearRect(0,0,c.width,c.height);x.fillStyle="#7c7cff";s.forEach(p=>{x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill()});requestAnimationFrame(a)})();
-
-/* GITHUB API */
-fetch("https://api.github.com/users/sandydan-dev")
-.then(r=>r.json())
-.then(d=>{
- document.getElementById("githubStats").innerHTML=
- `⭐ Repos: ${d.public_repos} | 👥 Followers: ${d.followers}`;
-});
-</script>
 
 </body>
 </html>
