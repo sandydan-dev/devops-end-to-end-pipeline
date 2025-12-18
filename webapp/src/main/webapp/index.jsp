@@ -45,7 +45,7 @@ body {
     height: calc(100vh - 80px);
     align-items: center;
     justify-content: space-between;
-    padding: 0 80px;
+    padding: 0 5%;
 }
 
 .hero-text {
@@ -53,7 +53,7 @@ body {
     animation: slideIn 1.2s ease-out;
 }
 
-.hero-text h1 { font-size: 52px; font-weight: 700; }
+.hero-text h1 { font-size: 48px; font-weight: 700; }
 .hero-text h1 span { color: #00eaff; }
 .hero-text p {
     margin-top: 20px;
@@ -77,20 +77,20 @@ body {
 }
 .hero-text .btn-resume:hover { transform: scale(1.1); }
 
-/* ================== CANVAS AREA ================== */
+/* Canvas for 3D animation */
 #animation-canvas {
     width: 500px;
+    max-width: 90vw;
     height: 500px;
-    position: relative;
 }
 
-/* ================== KEYFRAMES ================== */
+/* KEYFRAMES */
 @keyframes slideIn {
     from { opacity: 0; transform: translateX(-80px); }
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* ================== FOOTER ================== */
+/* FOOTER */
 .footer {
     position: absolute;
     bottom: 20px;
@@ -135,9 +135,11 @@ body {
     © 2025 DevOpsHub | Powered by JSP & Tomcat
 </div>
 
-<!-- Three.js -->
+<!-- THREE.JS -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/loaders/FontLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.164.0/examples/js/geometries/TextGeometry.js"></script>
 
 <script>
 // ================== THREE.JS SETUP ==================
@@ -145,7 +147,7 @@ const container = document.getElementById('animation-canvas');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000);
 
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 1000);
 camera.position.set(0, 5, 25);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -165,7 +167,7 @@ const earthMat = new THREE.MeshPhongMaterial({
     color: 0x2266ff,
     shininess: 30,
     emissive: 0x112244,
-    emissiveIntensity: 0.5
+    emissiveIntensity: 0.6
 });
 const earth = new THREE.Mesh(earthGeo, earthMat);
 scene.add(earth);
@@ -173,7 +175,7 @@ scene.add(earth);
 // Stars background
 const starGeo = new THREE.BufferGeometry();
 const starVertices = [];
-for(let i=0;i<2000;i++){
+for(let i=0;i<3000;i++){
     starVertices.push((Math.random()-0.5)*2000);
     starVertices.push((Math.random()-0.5)*2000);
     starVertices.push((Math.random()-0.5)*2000);
@@ -182,7 +184,7 @@ starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVertices,3
 const stars = new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xffffff}));
 scene.add(stars);
 
-// Orbiting DevOps tool names
+// Orbiting DevOps tools as text
 const loader = new THREE.FontLoader();
 const orbitTexts = [];
 const tools = ['Docker','Kubernetes','Jenkins','Terraform','GitHub'];
@@ -203,7 +205,7 @@ loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json
     });
 });
 
-// Controls
+// Orbit Controls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
@@ -227,7 +229,7 @@ function animate(){
 }
 animate();
 
-// Resize
+// Responsive Resize
 window.addEventListener('resize', ()=>{
     camera.aspect = container.clientWidth/container.clientHeight;
     camera.updateProjectionMatrix();
