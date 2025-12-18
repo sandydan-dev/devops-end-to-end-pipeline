@@ -136,7 +136,7 @@ body {
 
 <!-- HERO -->
 <div id="hero" class="hero">
-    <h1>Hello, I'm <span>Sandy Dan</span></h1>
+    <h1>Hello, I'm <span>Sandeep Dan</span></h1>
     <p>I am a DevOps & Cloud enthusiast building scalable, automated, and reliable infrastructure with CI/CD, Docker, Kubernetes, and AWS.</p>
     <a href="resume.pdf" download class="btn-resume">Download Resume</a>
 </div>
