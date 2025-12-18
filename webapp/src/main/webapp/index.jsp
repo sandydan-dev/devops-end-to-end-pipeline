@@ -118,7 +118,7 @@ body {
 <!-- HERO SECTION -->
 <div class="hero">
     <div class="hero-text">
-        <h1>Build. Deploy. Automation <span>Automate.</span></h1>
+        <h1>Build. Deploy. <i>Automate.</i></h1>
         <p>
             Modern DevOps platform integrating CI/CD pipelines, cloud automation,
             container orchestration, and monitoring — all in one place.
