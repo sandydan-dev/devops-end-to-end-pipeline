@@ -18,9 +18,10 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:system-ui, sans-serif;
-  background:linear-gradient(180deg,#020617,#020617);
+  background:var(--bg);
   color:var(--text);
 }
 
@@ -31,6 +32,7 @@ header{
   width:100%;
   background:#020617;
   border-bottom:1px solid var(--border);
+  z-index:10;
 }
 nav{
   max-width:1200px;
@@ -54,25 +56,52 @@ section{
 
 /* ===== HERO ===== */
 .hero{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
+  text-align:center;
+  padding-top:160px;
 }
 .hero h1 span{
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
   color:transparent;
 }
+.hero p{
+  color:var(--muted);
+  margin-top:12px;
+}
 
-/* ===== CODE ===== */
-.code{
-  background:var(--card);
+/* ===== CODE SCROLL ===== */
+.code-wrapper{
+  margin:50px auto 0;
+  max-width:700px;
+  height:280px;
+  overflow:hidden;
+  border-radius:14px;
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:18px;
+  background:linear-gradient(180deg,#020617,#020617);
+}
+
+.code-header{
+  display:flex;
+  gap:8px;
+  padding:10px;
+  border-bottom:1px solid var(--border);
+}
+.dot{width:10px;height:10px;border-radius:50%}
+.red{background:#ef4444}
+.yellow{background:#facc15}
+.green{background:#22c55e}
+
+.code-scroll{
+  padding:16px;
   font-family:monospace;
   font-size:13px;
   color:#a5f3fc;
+  animation:scrollCode 18s linear infinite;
+}
+
+@keyframes scrollCode{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-50%)}
 }
 
 /* ===== PIPELINES ===== */
@@ -82,7 +111,7 @@ section{
 
 .lane-title{
   color:var(--accent);
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .pipeline{
@@ -103,15 +132,13 @@ section{
   text-decoration:none;
   color:var(--text);
 }
-
-.pipe:hover{
-  border-color:var(--accent);
-}
-
 .pipe span{
   display:block;
   font-size:12px;
   color:var(--muted);
+}
+.pipe:hover{
+  border-color:var(--accent);
 }
 
 .arrow{
@@ -119,20 +146,18 @@ section{
   font-size:20px;
 }
 
-/* ===== BLUE GREEN ===== */
+/* ===== DEPLOY ===== */
 .deploy{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:20px;
 }
-
 .deploy-box{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:12px;
   padding:18px;
 }
-
 .deploy-box h4{
   color:var(--accent);
   margin-bottom:6px;
@@ -147,7 +172,6 @@ footer{
 }
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr}
   .deploy{grid-template-columns:1fr}
 }
 </style>
@@ -167,26 +191,46 @@ footer{
 
 <!-- HERO -->
 <section class="hero">
-  <div>
-    <h1>Hello,<br>
-      I'm <span>Your Name</span><br>
-      DevOps Engineer
-    </h1>
-    <p style="margin-top:14px;color:var(--muted)">
-      CI/CD | Terraform | AWS | Docker | Kubernetes
-    </p>
-  </div>
+  <h1>Hello, I'm <span>Your Name</span><br>DevOps Engineer</h1>
+  <p>CI/CD • Terraform • AWS • Docker • Kubernetes</p>
 
-  <div class="code">
+  <!-- CENTERED TERRAFORM CODE -->
+  <div class="code-wrapper">
+    <div class="code-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+
+    <div class="code-scroll">
 <pre>
 provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+}
+
 resource "aws_eks_cluster" "prod" {
   name = "eks-prod"
 }
+
+resource "aws_eks_node_group" "nodes" {
+  cluster_name = aws_eks_cluster.prod.name
+}
+
+# --- repeat ---
+provider "aws" {
+  region = "us-east-1"
+}
 </pre>
+    </div>
   </div>
 </section>
 
@@ -196,76 +240,42 @@ resource "aws_eks_cluster" "prod" {
 
 <div class="pipeline-wrapper">
 
-<!-- CI LANE -->
 <h3 class="lane-title">CI Pipeline</h3>
 <div class="pipeline">
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">GitHub
-    <span>Source Code</span>
-  </a>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">GitHub<span>Source</span></a>
   <div class="arrow">➜</div>
-
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Jenkins
-    <span>Build & Test</span>
-  </a>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Jenkins<span>Build & Test</span></a>
   <div class="arrow">➜</div>
-
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Docker
-    <span>Image Build</span>
-  </a>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Docker<span>Image</span></a>
 </div>
 
-<!-- CD LANE -->
 <h3 class="lane-title">CD Pipeline</h3>
 <div class="pipeline">
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">AWS ECR
-    <span>Image Registry</span>
-  </a>
+  <div class="pipe">AWS ECR<span>Registry</span></div>
   <div class="arrow">➜</div>
-
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Kubernetes (EKS)
-    <span>Deployment</span>
-  </a>
+  <div class="pipe">EKS<span>Deploy</span></div>
   <div class="arrow">➜</div>
-
-  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Monitoring
-    <span>Prometheus / Grafana</span>
-  </a>
+  <div class="pipe">Monitoring<span>Prometheus</span></div>
 </div>
 
-<!-- TERRAFORM -->
-<h3 class="lane-title">Terraform Infrastructure Pipeline</h3>
+<h3 class="lane-title">Terraform Pipeline</h3>
 <div class="pipeline">
-  <div class="pipe">Terraform Init
-    <span>Provider Setup</span>
-  </div>
+  <div class="pipe">terraform init</div>
   <div class="arrow">➜</div>
-
-  <div class="pipe">Terraform Plan
-    <span>Preview Changes</span>
-  </div>
+  <div class="pipe">terraform plan</div>
   <div class="arrow">➜</div>
-
-  <div class="pipe">Terraform Apply
-    <span>Create AWS Infra</span>
-  </div>
+  <div class="pipe">terraform apply</div>
 </div>
 
-<!-- DEPLOYMENT -->
 <h3 class="lane-title">Deployment Strategy</h3>
 <div class="deploy">
   <div class="deploy-box">
-    <h4>Blue-Green Deployment</h4>
-    <p style="color:var(--muted)">
-      Two environments (Blue & Green). Traffic switches only after
-      successful validation.
-    </p>
+    <h4>Blue-Green</h4>
+    <p style="color:var(--muted)">Zero-downtime traffic switch.</p>
   </div>
-
   <div class="deploy-box">
     <h4>Rolling Update</h4>
-    <p style="color:var(--muted)">
-      Pods updated gradually ensuring zero downtime.
-    </p>
+    <p style="color:var(--muted)">Gradual pod replacement.</p>
   </div>
 </div>
 
@@ -275,9 +285,7 @@ resource "aws_eks_cluster" "prod" {
 <!-- RESUME -->
 <section id="resume">
 <h2>Resume</h2>
-<a href="resume.pdf" download class="pipe" style="display:inline-block">
-Download Resume
-</a>
+<a href="resume.pdf" download class="pipe">Download Resume</a>
 </section>
 
 <footer>
