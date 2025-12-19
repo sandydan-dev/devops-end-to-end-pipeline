@@ -1,0 +1,13 @@
+pipeline{
+    stages {
+
+        stage("stage 1") {
+            steps {
+                echo "Hello World"
+            }
+        }
+
+      
+
+    }
+}
