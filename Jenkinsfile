@@ -1,10 +1,36 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
+
     stages {
-        stage('Stage 1') {
+
+        stage("Build") {
             steps {
-                echo 'Hello World, this is Jenkinsfile'
+                echo "----- BUILD START -----"
+                sh "cd webapp && mvn clean package -Dmaven.test.skip=true"
+                echo "----- BUILD END -----"
+            }
+        }
+
+        stage("Test") {
+            steps {
+                echo "----- TEST START -----"
+                sh "cd webapp && mvn surefire-report:report"
+                echo "----- TEST END -----"
+            }
+        }
+
+        stage("SonarCloud Analysis") {
+            environment {
+                scannerHome = tool "sandy-sonar-scanner"
+            }
+            steps {
+                withSonarQubeEnv("sonar-server") {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
     }
