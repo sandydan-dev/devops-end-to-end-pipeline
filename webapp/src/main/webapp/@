@@ -1,0 +1,258 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DevOps Engineer Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ===== THEME ===== */
+:root{
+  --bg1:#0b1020;
+  --bg2:#0f172a;
+  --card:#111827;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#22d3ee;
+  --accent2:#a855f7;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:system-ui, sans-serif;
+  background:radial-gradient(circle at top left,var(--bg2),var(--bg1));
+  color:var(--text);
+  scroll-behavior:smooth;
+}
+
+/* ===== NAV ===== */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:10;
+  background:rgba(11,16,32,.9);
+}
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav strong{
+  color:var(--accent);
+  letter-spacing:1px;
+}
+.nav a{
+  color:var(--muted);
+  margin-left:22px;
+  text-decoration:none;
+  font-size:14px;
+}
+.nav a:hover{color:var(--accent)}
+
+/* ===== SECTIONS ===== */
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:120px 24px;
+}
+
+/* ===== HERO ===== */
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  padding-top:160px;
+}
+.hero h1{
+  font-size:44px;
+  line-height:1.2;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  margin-top:18px;
+  color:var(--muted);
+  max-width:520px;
+}
+
+/* ===== BUTTONS ===== */
+.buttons{
+  margin-top:26px;
+}
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:14px;
+  margin-right:12px;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;
+  font-weight:600;
+}
+.btn.outline{
+  border:1px solid var(--accent);
+  color:var(--accent);
+}
+
+/* ===== CODE CARD ===== */
+.code-card{
+  background:linear-gradient(180deg,#0b1220,#020617);
+  border-radius:14px;
+  border:1px solid #1f2937;
+  padding:20px;
+  font-family:monospace;
+  font-size:13px;
+  color:#a5f3fc;
+}
+.code-header{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+.dot{width:10px;height:10px;border-radius:50%}
+.red{background:#ef4444}
+.yellow{background:#facc15}
+.green{background:#22c55e}
+.code span{color:#c084fc}
+
+/* ===== ABOUT ===== */
+.about p{
+  color:var(--muted);
+  max-width:700px;
+}
+
+/* ===== PROJECTS ===== */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+.project{
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  border:1px solid #1f2937;
+}
+.project h3{margin-bottom:8px}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  border-top:1px solid #1f2937;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAV ===== -->
+<header>
+  <div class="nav">
+    <strong>YOUR NAME</strong>
+    <div>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div>
+    <h1>Hello,<br>
+      This is <span>Your Name</span><br>
+      I'm a DevOps Engineer.
+    </h1>
+    <p>
+      I design CI/CD pipelines, automate cloud infrastructure,
+      and deploy scalable applications using modern DevOps practices.
+    </p>
+
+    <div class="buttons">
+      <a href="#about" class="btn outline">Contact Me</a>
+      <a href="resume.pdf" download class="btn primary">Get Resume</a>
+    </div>
+  </div>
+
+  <div class="code-card">
+    <div class="code-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <pre class="code">
+const engineer = {
+  role: "DevOps Engineer",
+  skills: ["Linux", "Docker", "K8s", "AWS"],
+  ci_cd: true,
+  automation: true,
+  reliability: true
+};
+    </pre>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="about">
+  <h2>About Me</h2>
+  <p>
+    DevOps engineer with hands-on experience in CI/CD pipelines,
+    containerization, Kubernetes orchestration, and AWS cloud services.
+    Focused on automation, scalability, and reliability.
+  </p>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <h3>CI/CD Pipeline</h3>
+      <p>Git → Jenkins → Docker → Kubernetes deployment.</p>
+    </div>
+    <div class="project">
+      <h3>AWS Infrastructure</h3>
+      <p>VPC, EC2, Load Balancer, Auto Scaling using Terraform.</p>
+    </div>
+    <div class="project">
+      <h3>Monitoring Setup</h3>
+      <p>Centralized logging and monitoring for production systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESUME ===== -->
+<section id="resume">
+  <h2>Resume</h2>
+  <a href="resume.pdf" download class="btn primary">Download Resume</a>
+</section>
+
+<footer>
+  © 2025 Your Name • DevOps Engineer
+</footer>
+
+</body>
+</html>
+

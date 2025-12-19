@@ -3,187 +3,389 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sandy Dan Portfolio</title>
+<title>DevOps Engineer Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-/* ================= GLOBAL ================= */
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-    font-family: 'Poppins', sans-serif;
-    color:#fff;
-    background:#0f2027;
-    overflow-x:hidden;
-    scroll-behavior: smooth;
+/* ===== THEME ===== */
+:root{
+  --bg1:#0b1020;
+  --bg2:#0f172a;
+  --card:#111827;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#22d3ee;
+  --accent2:#a855f7;
 }
 
-/* ================= BACKGROUND PARTICLES ================= */
-.background {
-    position: fixed; top:0; left:0;
-    width:100%; height:100%;
-    z-index:-1;
-    overflow:hidden;
-}
-.particle {
-    position:absolute; border-radius:50%;
-    opacity:0.2;
-    background: linear-gradient(45deg,#00eaff,#ff00ff);
-    animation: float 30s linear infinite;
-}
-@keyframes float {
-    0% { transform: translateY(0) translateX(0) scale(1); }
-    50% { transform: translateY(-1000px) translateX(500px) scale(1.3); }
-    100% { transform: translateY(0) translateX(0) scale(1); }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:system-ui, sans-serif;
+  background:radial-gradient(circle at top left,var(--bg2),var(--bg1));
+  color:var(--text);
+  scroll-behavior:smooth;
 }
 
-/* ================= NAVBAR ================= */
-.navbar {
-    display:flex; justify-content: space-between;
-    padding:20px 50px; position: fixed; width:100%; z-index:10;
+/* ===== NAV ===== */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:10;
+  background:rgba(11,16,32,.9);
 }
-.logo { font-size:24px; font-weight:700; letter-spacing:1px; }
-.nav-links a {
-    margin-left:30px; text-decoration:none; color:#fff; font-weight:400; transition:0.3s; position:relative;
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.nav-links a::after {
-    content:""; position:absolute; width:0; height:2px; left:0; bottom:-4px; background:#00eaff; transition:0.3s;
+.nav strong{color:var(--accent)}
+.nav a{
+  color:var(--muted);
+  margin-left:22px;
+  text-decoration:none;
+  font-size:14px;
 }
-.nav-links a:hover::after { width:100%; }
+.nav a:hover{color:var(--accent)}
 
-/* ================= HERO ================= */
-.hero {
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    height:100vh; text-align:center; padding:0 20px; overflow:hidden;
-}
-.hero h1 {
-    font-size:56px; font-weight:700; margin-bottom:20px;
-    opacity:0; transform:translateY(-30px); animation: fadeSlide 1s forwards 0.5s;
-}
-.hero h1 span { color:#00eaff; }
-.hero p {
-    font-size:20px; opacity:0; transform:translateY(-20px); max-width:600px; margin-bottom:30px;
-    animation: fadeSlide 1s forwards 1s;
-}
-.btn-resume {
-    padding:14px 32px; border:none; background:#00eaff; color:#000;
-    font-size:16px; font-weight:600; border-radius:30px; cursor:pointer; text-decoration:none;
-    transition:0.3s, box-shadow 0.3s;
-    opacity:0; transform: translateY(-10px); animation: fadeSlide 1s forwards 1.5s;
-}
-.btn-resume:hover { transform: scale(1.1); box-shadow:0 0 20px #00eaff,0 0 40px #ff00ff; }
-
-/* ================= SECTIONS ================= */
-.section { padding:100px 20px; text-align:center; opacity:0; transform:translateY(50px); transition: all 1s ease-out; }
-.section.visible { opacity:1; transform:translateY(0); }
-.section h2 { font-size:36px; margin-bottom:40px; }
-.section p { max-width:700px; margin:0 auto; font-size:18px; opacity:0.85; line-height:1.6; }
-
-/* ================= PROJECTS PIPELINE ================= */
-.pipeline {
-    display:flex; justify-content:center; align-items:center; gap:30px; flex-wrap:wrap; margin-top:30px;
-}
-.stage {
-    position:relative; padding:20px 40px; border-radius:20px;
-    background: rgba(0,255,255,0.1); border:2px solid #00eaff;
-    font-weight:600; letter-spacing:1px;
-    animation: pulse 2s infinite alternate;
-}
-.stage::after {
-    content:""; position:absolute; width:50px; height:4px; background:#00eaff;
-    top:50%; right:-50px; transform:translateY(-50%);
-}
-.stage:last-child::after { display:none; }
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px #00eaff; }
-    50% { box-shadow: 0 0 20px #00eaff; }
-    100% { box-shadow: 0 0 10px #00eaff; }
+/* ===== SECTIONS ===== */
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:120px 24px;
 }
 
-/* ================= FOOTER ================= */
-.footer { text-align:center; padding:20px; opacity:0.6; }
-
-/* ================= ANIMATIONS ================= */
-@keyframes fadeSlide { to { opacity:1; transform:translateY(0); } }
-
-/* ================= RESPONSIVE ================= */
-@media(max-width:768px){
-    .hero h1 { font-size:40px; }
-    .hero p { font-size:16px; }
-    .pipeline { flex-direction:column; gap:20px; }
-    .stage::after { display:none; }
+/* ===== HERO ===== */
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  padding-top:160px;
 }
+.hero h1{
+  font-size:44px;
+  line-height:1.2;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  margin-top:18px;
+  color:var(--muted);
+  max-width:520px;
+}
+
+/* ===== BUTTONS ===== */
+.buttons{margin-top:26px}
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:14px;
+  margin-right:12px;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;
+  font-weight:600;
+}
+.btn.outline{
+  border:1px solid var(--accent);
+  color:var(--accent);
+}
+
+/* ===== CODE CARD ===== */
+.code-card{
+  background:linear-gradient(180deg,#0b1220,#020617);
+  border-radius:14px;
+  border:1px solid #1f2937;
+  padding:18px;
+  height:340px;
+  overflow:hidden;
+  font-family:monospace;
+  font-size:13px;
+  position:relative;
+}
+
+/* fake editor header */
+.code-header{
+  display:flex;
+  gap:8px;
+  margin-bottom:10px;
+}
+.dot{width:10px;height:10px;border-radius:50%}
+.red{background:#ef4444}
+.yellow{background:#facc15}
+.green{background:#22c55e}
+
+/* ===== SCROLLING CODE ===== */
+.code-scroll{
+  position:absolute;
+  top:50px;
+  left:18px;
+  right:18px;
+  animation:scrollCode 22s linear infinite;
+  color:#a5f3fc;
+}
+.code-scroll span{color:#c084fc}
+.code-scroll .res{color:#38bdf8}
+.code-scroll .str{color:#fca5a5}
+
+/* duplicate content creates seamless loop */
+.code-scroll::after{
+  content:attr(data-code);
+  white-space:pre;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+@keyframes scrollCode{
+  from{transform:translateY(0)}
+  to{transform:translateY(-50%)}
+}
+
+/* ===== PROJECTS ===== */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+.project{
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  border:1px solid #1f2937;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  border-top:1px solid #1f2937;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
+}
+
+.pipeline-container{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+}
+
+.pipeline-box{
+  background:#020617;
+  border:1px solid #1f2937;
+  border-radius:12px;
+  padding:16px 18px;
+  min-width:150px;
+  text-align:center;
+  transition:.3s ease;
+}
+
+.pipeline-box h4{
+  color:#22d3ee;
+  margin-bottom:6px;
+}
+
+.pipeline-box p{
+  font-size:13px;
+  color:#9ca3af;
+}
+
+.pipeline-box:hover{
+  transform:translateY(-4px);
+  border-color:#22d3ee;
+}
+
+.arrow{
+  font-size:22px;
+  color:#a855f7;
+}
+
+.pipeline-desc{
+  margin-top:24px;
+  max-width:800px;
+  color:#9ca3af;
+  font-size:14px;
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- Particle Background -->
-<div class="background">
-    <% for(int i=0;i<30;i++){ %>
-        <div class="particle" style="width:<%=5+Math.random()*15%>px; height:<%=5+Math.random()*15%>px; top:<%=Math.random()*100%>%; left:<%=Math.random()*100%>%; animation-duration:<%=20+Math.random()*20%>s;"></div>
-    <% } %>
-</div>
-
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">Sandepp Dan</div>
-    <div class="nav-links">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+<header>
+  <div class="nav">
+    <strong>YOUR NAME</strong>
+    <div>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
     </div>
-</div>
+  </div>
+</header>
 
-<!-- HERO -->
-<div id="hero" class="hero">
-    <h1>Hello, I'm <span>Sandeep Dan</span></h1>
-    <p>I am a DevOps & Cloud enthusiast building scalable, automated, and reliable infrastructure with CI/CD, Docker, Kubernetes, and AWS.</p>
-    <a href="resume.pdf" download class="btn-resume">Download Resume</a>
-</div>
+<section class="hero">
+  <div>
+    <h1>Hello,<br>
+      This is <span>Your Name</span><br>
+      I'm a DevOps Engineer.
+    </h1>
+    <p>
+      Automating cloud infrastructure and CI/CD pipelines
+      using Terraform, Docker, Kubernetes and AWS.
+    </p>
 
-<!-- ABOUT -->
-<div id="about" class="section">
-    <h2>About Me</h2>
-    <p>I specialize in cloud automation, container orchestration, and CI/CD pipelines. My goal is to make infrastructure reliable, secure, and scalable, helping businesses accelerate software delivery.</p>
-</div>
-
-<!-- PROJECTS -->
-<div id="projects" class="section">
-    <h2>Projects & CI/CD Pipeline</h2>
-    <div class="pipeline">
-        <div class="stage">CODE</div>
-        <div class="stage">BUILD</div>
-        <div class="stage">TEST</div>
-        <div class="stage">DEPLOY</div>
-        <div class="stage">MONITOR</div>
+    <div class="buttons">
+      <a href="#projects" class="btn outline">View Projects</a>
+      <a href="resume.pdf" download class="btn primary">Get Resume</a>
     </div>
-    <p style="margin-top:30px;">This pipeline represents a continuous workflow of development, testing, deployment, and monitoring in DevOps projects.</p>
-</div>
+  </div>
 
-<!-- CONTACT -->
-<div id="contact" class="section">
-    <h2>Contact</h2>
-    <p>Email: sandy@example.com | Phone: +91 9876543210</p>
-</div>
+  <!-- ===== TERRAFORM CODE CARD ===== -->
+  <div class="code-card">
+    <div class="code-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    © 2025 Sandy Dan | Designed with JSP & CSS
-</div>
-
-<script>
-// Scroll-triggered fade-in sections
-const sections = document.querySelectorAll('.section');
-function revealSections(){
-    const triggerBottom = window.innerHeight * 0.85;
-    sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if(top < triggerBottom){ section.classList.add('visible'); }
-    });
+<pre class="code-scroll" data-code='
+provider "aws" {
+  region = "us-east-1"
 }
-window.addEventListener('scroll', revealSections);
-window.addEventListener('load', revealSections);
-</script>
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0abcdef123"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "devops-server"
+  }
+}
+
+output "public_ip" {
+  value = aws_instance.web.public_ip
+}
+'>
+provider <span>"aws"</span> {
+  region = <span class="str">"us-east-1"</span>
+}
+
+resource <span class="res">"aws_vpc"</span> "main" {
+  cidr_block = <span class="str">"10.0.0.0/16"</span>
+}
+
+resource <span class="res">"aws_subnet"</span> "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = <span class="str">"10.0.1.0/24"</span>
+}
+
+resource <span class="res">"aws_instance"</span> "web" {
+  ami           = <span class="str">"ami-0abcdef123"</span>
+  instance_type = <span class="str">"t3.micro"</span>
+
+  tags = {
+    Name = <span class="str">"devops-server"</span>
+  }
+}
+
+output <span>"public_ip"</span> {
+  value = aws_instance.web.public_ip
+}
+</pre>
+
+  </div>
+</section>
+
+
+  <section id="projects">
+  <h2 style="margin-bottom:30px">End-to-End CI/CD Pipelines</h2>
+
+  <div class="pipeline-container">
+
+    <div class="pipeline-box">
+      <h4>GitHub</h4>
+      <p>Source Code</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Jenkins</h4>
+      <p>CI Build & Test</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Docker</h4>
+      <p>Image Build</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>AWS ECR</h4>
+      <p>Image Registry</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Kubernetes (EKS)</h4>
+      <p>Deployment</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Monitoring</h4>
+      <p>Prometheus & Grafana</p>
+    </div>
+
+  </div>
+
+  <div class="pipeline-desc">
+    <p>
+      <strong>Pipeline Flow:</strong><br>
+      Developer pushes code to GitHub → Jenkins triggers CI → Docker image is built →
+      pushed to AWS ECR → deployed to Kubernetes (EKS) →
+      monitored using Prometheus & Grafana.
+    </p>
+  </div>
+</section>
+
+
+<section id="resume">
+  <h2>Resume</h2>
+  <a href="resume.pdf" download class="btn primary">Download Resume</a>
+</section>
+
+<footer>
+  © 2025 Your Name • DevOps Engineer
+</footer>
 
 </body>
 </html>
