@@ -42,10 +42,7 @@ header{
   justify-content:space-between;
   align-items:center;
 }
-.nav strong{
-  color:var(--accent);
-  letter-spacing:1px;
-}
+.nav strong{color:var(--accent)}
 .nav a{
   color:var(--muted);
   margin-left:22px;
@@ -85,9 +82,7 @@ section{
 }
 
 /* ===== BUTTONS ===== */
-.buttons{
-  margin-top:26px;
-}
+.buttons{margin-top:26px}
 .btn{
   display:inline-block;
   padding:10px 18px;
@@ -111,26 +106,48 @@ section{
   background:linear-gradient(180deg,#0b1220,#020617);
   border-radius:14px;
   border:1px solid #1f2937;
-  padding:20px;
+  padding:18px;
+  height:340px;
+  overflow:hidden;
   font-family:monospace;
   font-size:13px;
-  color:#a5f3fc;
+  position:relative;
 }
+
+/* fake editor header */
 .code-header{
   display:flex;
   gap:8px;
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
 .dot{width:10px;height:10px;border-radius:50%}
 .red{background:#ef4444}
 .yellow{background:#facc15}
 .green{background:#22c55e}
-.code span{color:#c084fc}
 
-/* ===== ABOUT ===== */
-.about p{
-  color:var(--muted);
-  max-width:700px;
+/* ===== SCROLLING CODE ===== */
+.code-scroll{
+  position:absolute;
+  top:50px;
+  left:18px;
+  right:18px;
+  animation:scrollCode 22s linear infinite;
+  color:#a5f3fc;
+}
+.code-scroll span{color:#c084fc}
+.code-scroll .res{color:#38bdf8}
+.code-scroll .str{color:#fca5a5}
+
+/* duplicate content creates seamless loop */
+.code-scroll::after{
+  content:attr(data-code);
+  white-space:pre;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+@keyframes scrollCode{
+  from{transform:translateY(0)}
+  to{transform:translateY(-50%)}
 }
 
 /* ===== PROJECTS ===== */
@@ -146,7 +163,6 @@ section{
   padding:20px;
   border:1px solid #1f2937;
 }
-.project h3{margin-bottom:8px}
 
 /* ===== FOOTER ===== */
 footer{
@@ -166,19 +182,16 @@ footer{
 
 <body>
 
-<!-- ===== NAV ===== -->
 <header>
   <div class="nav">
     <strong>YOUR NAME</strong>
     <div>
-      <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#resume">Resume</a>
     </div>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
 <section class="hero">
   <div>
     <h1>Hello,<br>
@@ -186,64 +199,95 @@ footer{
       I'm a DevOps Engineer.
     </h1>
     <p>
-      I design CI/CD pipelines, automate cloud infrastructure,
-      and deploy scalable applications using modern DevOps practices.
+      Automating cloud infrastructure and CI/CD pipelines
+      using Terraform, Docker, Kubernetes and AWS.
     </p>
 
     <div class="buttons">
-      <a href="#about" class="btn outline">Contact Me</a>
+      <a href="#projects" class="btn outline">View Projects</a>
       <a href="resume.pdf" download class="btn primary">Get Resume</a>
     </div>
   </div>
 
+  <!-- ===== TERRAFORM CODE CARD ===== -->
   <div class="code-card">
     <div class="code-header">
       <div class="dot red"></div>
       <div class="dot yellow"></div>
       <div class="dot green"></div>
     </div>
-    <pre class="code">
-const engineer = {
-  role: "DevOps Engineer",
-  skills: ["Linux", "Docker", "K8s", "AWS"],
-  ci_cd: true,
-  automation: true,
-  reliability: true
-};
-    </pre>
+
+<pre class="code-scroll" data-code='
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0abcdef123"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "devops-server"
+  }
+}
+
+output "public_ip" {
+  value = aws_instance.web.public_ip
+}
+'>
+provider <span>"aws"</span> {
+  region = <span class="str">"us-east-1"</span>
+}
+
+resource <span class="res">"aws_vpc"</span> "main" {
+  cidr_block = <span class="str">"10.0.0.0/16"</span>
+}
+
+resource <span class="res">"aws_subnet"</span> "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = <span class="str">"10.0.1.0/24"</span>
+}
+
+resource <span class="res">"aws_instance"</span> "web" {
+  ami           = <span class="str">"ami-0abcdef123"</span>
+  instance_type = <span class="str">"t3.micro"</span>
+
+  tags = {
+    Name = <span class="str">"devops-server"</span>
+  }
+}
+
+output <span>"public_ip"</span> {
+  value = aws_instance.web.public_ip
+}
+</pre>
+
   </div>
 </section>
 
-<!-- ===== ABOUT ===== -->
-<section id="about" class="about">
-  <h2>About Me</h2>
-  <p>
-    DevOps engineer with hands-on experience in CI/CD pipelines,
-    containerization, Kubernetes orchestration, and AWS cloud services.
-    Focused on automation, scalability, and reliability.
-  </p>
-</section>
-
-<!-- ===== PROJECTS ===== -->
 <section id="projects">
   <h2>Projects</h2>
   <div class="projects">
     <div class="project">
+      <h3>Terraform AWS Infra</h3>
+      <p>Provisioned VPC, EC2, Subnets using Terraform.</p>
+    </div>
+    <div class="project">
       <h3>CI/CD Pipeline</h3>
       <p>Git → Jenkins → Docker → Kubernetes deployment.</p>
-    </div>
-    <div class="project">
-      <h3>AWS Infrastructure</h3>
-      <p>VPC, EC2, Load Balancer, Auto Scaling using Terraform.</p>
-    </div>
-    <div class="project">
-      <h3>Monitoring Setup</h3>
-      <p>Centralized logging and monitoring for production systems.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== RESUME ===== -->
 <section id="resume">
   <h2>Resume</h2>
   <a href="resume.pdf" download class="btn primary">Download Resume</a>
