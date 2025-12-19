@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,250 +8,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ================= BASE ================= */
+/* ===== BASE ===== */
 :root{
-  --bg:#020617;
-  --card:#0b1220;
+  --bg:#0f172a;
+  --card:#111827;
   --text:#e5e7eb;
-  --muted:#94a3b8;
+  --muted:#9ca3af;
   --accent:#38bdf8;
-  --green:#22c55e;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
+  font-family:system-ui, sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui,sans-serif;
-  overflow-x:hidden;
+  line-height:1.6;
+  scroll-behavior:smooth;
 }
 
-/* ================= HEADER / MENU ================= */
+/* ===== HEADER / MENU ===== */
 header{
   position:fixed;
-  top:0;
   width:100%;
+  top:0;
+  background:#020617;
   z-index:10;
-  background:rgba(2,6,23,.8);
-  backdrop-filter:blur(8px);
 }
 .nav{
   max-width:1100px;
   margin:auto;
-  padding:16px 20px;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.nav strong{
-  font-size:18px;
-  letter-spacing:1px;
-}
+.nav strong{font-size:18px}
 .nav a{
   color:var(--muted);
-  margin-left:20px;
+  margin-left:18px;
   text-decoration:none;
   font-size:14px;
 }
 .nav a:hover{color:var(--accent)}
 
-/* ================= SECTIONS ================= */
+/* ===== SECTIONS ===== */
 section{
   max-width:1100px;
   margin:auto;
-  padding:120px 20px;
+  padding:100px 20px;
 }
 
-/* ================= HERO ================= */
+/* ===== HERO ===== */
 .hero{
-  text-align:center;
-  padding-top:160px;
+  padding-top:140px;
+  animation:fadeIn .8s ease;
 }
 .hero h1{
   font-size:42px;
 }
 .hero span{color:var(--accent)}
 .hero p{
-  margin-top:14px;
+  margin-top:12px;
   color:var(--muted);
+  max-width:600px;
+}
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 20px;
+  border-radius:6px;
+  background:var(--accent);
+  color:#000;
+  text-decoration:none;
+  font-weight:600;
 }
 
-/* ================= SLIDER ================= */
-.slider{
-  margin-top:60px;
-  overflow:hidden;
-  position:relative;
-}
-.slides{
-  display:flex;
-  width:600%;
-  animation:slide 24s infinite;
-}
-.slide{
-  width:100%;
-  flex-shrink:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+/* ===== CARDS ===== */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:30px;
 }
 .card{
   background:var(--card);
+  padding:20px;
+  border-radius:10px;
   border:1px solid #1f2937;
-  border-radius:20px;
-  width:320px;
-  height:200px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 0 40px rgba(56,189,248,.15);
+  animation:slideUp .6s ease;
 }
-.card h3{
-  margin-bottom:10px;
-  color:var(--accent);
-}
-.card p{
-  font-size:14px;
-  color:var(--muted);
+.card h3{margin-bottom:8px}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:30px 20px;
   text-align:center;
-  max-width:260px;
+  color:var(--muted);
+  border-top:1px solid #1f2937;
 }
 
-/* ================= SLIDE ANIMATION ================= */
-@keyframes slide{
-  0%{transform:translateX(0%)}
-  16%{transform:translateX(0%)}
-
-  20%{transform:translateX(-100%)}
-  36%{transform:translateX(-100%)}
-
-  40%{transform:translateX(-200%)}
-  56%{transform:translateX(-200%)}
-
-  60%{transform:translateX(-300%)}
-  76%{transform:translateX(-300%)}
-
-  80%{transform:translateX(-400%)}
-  96%{transform:translateX(-400%)}
-
-  100%{transform:translateX(0%)}
-}
-
-/* ================= PIPELINE FLOW ================= */
-.flow{
-  margin-top:40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.stage{
-  background:var(--card);
-  border-radius:12px;
-  padding:14px 20px;
-  position:relative;
-  font-size:13px;
-}
-.stage:after{
-  content:"";
-  position:absolute;
-  right:-40px;
-  top:50%;
-  width:40px;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  animation:flow 1.5s infinite;
-}
-.stage:last-child:after{display:none}
-@keyframes flow{
-  from{opacity:.2}
+/* ===== SIMPLE ANIMATIONS ===== */
+@keyframes fadeIn{
+  from{opacity:0}
   to{opacity:1}
 }
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(8px)}
+  to{opacity:1; transform:translateY(0)}
+}
 
-/* ================= RESPONSIVE ================= */
+/* ===== MOBILE ===== */
 @media(max-width:768px){
-  .flow{flex-direction:column;gap:20px}
-  .stage:after{display:none}
+  .hero h1{font-size:32px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= MENU BAR ================= -->
+<!-- ===== MENU BAR ===== -->
 <header>
   <div class="nav">
     <strong>DevOps</strong>
     <div>
       <a href="#home">Home</a>
-      <a href="#pipeline">Pipeline</a>
-      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
     </div>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
+<!-- ===== HERO ===== -->
 <section id="home" class="hero">
-  <h1>DevOps <span>Engineer</span></h1>
-  <p>CI/CD • Docker • Kubernetes • Cloud Automation</p>
+  <h1>Hi, I'm a <span>DevOps Engineer</span></h1>
+  <p>
+    I build reliable CI/CD pipelines, automate cloud infrastructure,
+    and deploy scalable applications using DevOps best practices.
+  </p>
+  <a href="#projects" class="btn">View Projects</a>
+</section>
 
-  <!-- ================= SLIDER ================= -->
-  <div class="slider">
-    <div class="slides">
-      <div class="slide">
-        <div class="card">
-          <h3>Source Code</h3>
-          <p>GitHub repository triggers the CI pipeline automatically</p>
-        </div>
-      </div>
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <h2>About Me</h2>
+  <p style="color:var(--muted); max-width:700px">
+    DevOps engineer with hands-on experience in Linux, Git, Jenkins,
+    Docker, Kubernetes and AWS. Focused on automation, reliability,
+    and clean infrastructure design.
+  </p>
+</section>
 
-      <div class="slide">
-        <div class="card">
-          <h3>CI Build</h3>
-          <p>Jenkins builds, tests and validates application code</p>
-        </div>
-      </div>
-
-      <div class="slide">
-        <div class="card">
-          <h3>Docker Image</h3>
-          <p>Application packaged as a versioned Docker image</p>
-        </div>
-      </div>
-
-      <div class="slide">
-        <div class="card">
-          <h3>Container Registry</h3>
-          <p>Images pushed to Docker Hub / ECR securely</p>
-        </div>
-      </div>
-
-      <div class="slide">
-        <div class="card">
-          <h3>Kubernetes Deploy</h3>
-          <p>Rolling deployment to Kubernetes cluster</p>
-        </div>
-      </div>
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>CI/CD Pipeline</h3>
+      <p>End-to-end pipeline using Git, Jenkins, Docker and Kubernetes.</p>
+    </div>
+    <div class="card">
+      <h3>AWS Infrastructure</h3>
+      <p>VPC, EC2, Load Balancer and Auto Scaling using Terraform.</p>
+    </div>
+    <div class="card">
+      <h3>Monitoring Setup</h3>
+      <p>Centralized logging and monitoring for production workloads.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= PIPELINE FLOW ================= -->
-<section id="pipeline">
-  <h2>DevOps Pipeline Flow</h2>
-  <div class="flow">
-    <div class="stage">Git</div>
-    <div class="stage">Jenkins</div>
-    <div class="stage">Docker</div>
-    <div class="stage">Registry</div>
-    <div class="stage">Kubernetes</div>
-  </div>
+<!-- ===== RESUME ===== -->
+<section id="resume">
+  <h2>Resume</h2>
+  <p style="color:var(--muted)">Download my resume below:</p>
+  <a href="resume.pdf" download class="btn">Download Resume</a>
 </section>
 
-<!-- ================= CONTACT ================= -->
-<section id="contact">
-  <h2>Contact</h2>
-  <p style="color:var(--muted)">Email: devops@example.com</p>
-  <p style="color:var(--muted)">Mobile: +91 XXXXXXXX</p>
-</section>
+<!-- ===== FOOTER ===== -->
+<footer>
+  © 2025 DevOps Engineer • Clean & Simple Portfolio
+</footer>
 
 </body>
 </html>
