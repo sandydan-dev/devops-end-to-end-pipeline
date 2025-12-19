@@ -177,6 +177,51 @@ footer{
   .hero{grid-template-columns:1fr}
   .hero h1{font-size:34px}
 }
+
+.pipeline-container{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+}
+
+.pipeline-box{
+  background:#020617;
+  border:1px solid #1f2937;
+  border-radius:12px;
+  padding:16px 18px;
+  min-width:150px;
+  text-align:center;
+  transition:.3s ease;
+}
+
+.pipeline-box h4{
+  color:#22d3ee;
+  margin-bottom:6px;
+}
+
+.pipeline-box p{
+  font-size:13px;
+  color:#9ca3af;
+}
+
+.pipeline-box:hover{
+  transform:translateY(-4px);
+  border-color:#22d3ee;
+}
+
+.arrow{
+  font-size:22px;
+  color:#a855f7;
+}
+
+.pipeline-desc{
+  margin-top:24px;
+  max-width:800px;
+  color:#9ca3af;
+  font-size:14px;
+}
+
 </style>
 </head>
 
@@ -276,16 +321,63 @@ output <span>"public_ip"</span> {
 
 <section id="projects">
   <h2>Projects</h2>
-  <div class="projects">
-    <div class="project">
-      <h3>Terraform AWS Infra</h3>
-      <p>Provisioned VPC, EC2, Subnets using Terraform.</p>
+  <section id="projects">
+  <h2 style="margin-bottom:30px">End-to-End CI/CD Pipelines</h2>
+
+  <div class="pipeline-container">
+
+    <div class="pipeline-box">
+      <h4>GitHub</h4>
+      <p>Source Code</p>
     </div>
-    <div class="project">
-      <h3>CI/CD Pipeline</h3>
-      <p>Git → Jenkins → Docker → Kubernetes deployment.</p>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Jenkins</h4>
+      <p>CI Build & Test</p>
     </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Docker</h4>
+      <p>Image Build</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>AWS ECR</h4>
+      <p>Image Registry</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Kubernetes (EKS)</h4>
+      <p>Deployment</p>
+    </div>
+
+    <div class="arrow">➜</div>
+
+    <div class="pipeline-box">
+      <h4>Monitoring</h4>
+      <p>Prometheus & Grafana</p>
+    </div>
+
   </div>
+
+  <div class="pipeline-desc">
+    <p>
+      <strong>Pipeline Flow:</strong><br>
+      Developer pushes code to GitHub → Jenkins triggers CI → Docker image is built →
+      pushed to AWS ECR → deployed to Kubernetes (EKS) →
+      monitored using Prometheus & Grafana.
+    </p>
+  </div>
+</section>
+
 </section>
 
 <section id="resume">
