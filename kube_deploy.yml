@@ -1,0 +1,17 @@
+---
+- hosts: kubernetes
+  become: true
+  user: root
+
+  tasks:
+
+    - name: run kubernetes deployment object
+      command: kubectl apply -f regapp_deployment.yml
+
+
+    - name: run kubernetes service object
+      command: kubectl apply -f regapp_service.yml
+
+    - name: update deployment with new pods if image updated to docker hub
+      command: kubectl rollout restart deployment.apps/myapp-regapp  
+
