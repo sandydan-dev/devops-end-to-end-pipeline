@@ -3,280 +3,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DevOps Engineer | Portfolio</title>
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>DevOps Engineer Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ================= ROOT ================= */
 :root {
-  --bg: #0b0f14;
-  --card: #121822;
+  --bg: #020617;
+  --card: #0b1220;
   --text: #e5e7eb;
-  --muted: #9ca3af;
+  --muted: #94a3b8;
   --accent: #38bdf8;
-  --accent2: #22c55e;
+  --green: #22c55e;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  background: radial-gradient(circle at top, #111827, var(--bg));
+  background: radial-gradient(circle at top, #020617, #000);
   color: var(--text);
-  scroll-behavior: smooth;
+  font-family: system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
-/* ---------- HEADER ---------- */
+/* ================= STARS ================= */
+.space {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 80% 40%, white, transparent),
+    radial-gradient(1px 1px at 50% 80%, white, transparent),
+    radial-gradient(2px 2px at 60% 20%, white, transparent);
+  animation: stars 30s linear infinite;
+}
+@keyframes stars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-500px); }
+}
+
+/* ================= HEADER ================= */
 header {
   position: fixed;
   width: 100%;
-  background: rgba(11,15,20,0.7);
-  backdrop-filter: blur(10px);
-  z-index: 100;
+  padding: 16px 24px;
+  background: rgba(2,6,23,.7);
+  backdrop-filter: blur(8px);
+  z-index: 10;
 }
-
-.nav {
+nav {
   max-width: 1100px;
   margin: auto;
-  padding: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
-
-.nav a {
+nav a {
   color: var(--muted);
-  margin-left: 20px;
+  margin-left: 18px;
   text-decoration: none;
   font-size: 14px;
 }
+nav a:hover { color: var(--accent); }
 
-.nav a:hover {
-  color: var(--accent);
-}
-
-/* ---------- SECTIONS ---------- */
+/* ================= SECTION ================= */
 section {
   max-width: 1100px;
   margin: auto;
-  padding: 110px 20px 80px;
+  padding: 120px 20px;
 }
 
-/* ---------- HERO ---------- */
+/* ================= HERO ================= */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
 }
-
 .hero h1 {
-  font-size: 42px;
-  line-height: 1.2;
+  font-size: 44px;
 }
-
-.hero span {
-  color: var(--accent);
-}
-
+.hero span { color: var(--accent); }
 .hero p {
-  margin: 20px 0;
+  margin-top: 16px;
   color: var(--muted);
 }
-
 .btn {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 22px;
   padding: 12px 22px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(135deg, var(--accent), var(--green));
   color: #000;
   text-decoration: none;
   font-weight: 600;
 }
 
-/* ---------- ANIMATION PANEL ---------- */
-.pipeline {
-  position: relative;
+/* ================= 3D EARTH ================= */
+.earth-wrapper {
+  perspective: 800px;
+}
+.earth {
+  width: 260px;
   height: 260px;
-  border-radius: 16px;
-  background: linear-gradient(180deg, #0f172a, #020617);
-  overflow: hidden;
+  margin: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #60a5fa, #1e3a8a 60%, #020617);
+  box-shadow: 0 0 40px #38bdf8;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spin 18s linear infinite;
+}
+.earth::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(255,255,255,.15) 0px,
+      rgba(255,255,255,.15) 2px,
+      transparent 4px,
+      transparent 10px
+    );
+  mix-blend-mode: overlay;
+}
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
 }
 
-.node {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+/* ================= CI/CD PIPELINE ================= */
+.pipeline {
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.stage {
+  width: 110px;
+  height: 70px;
   background: var(--card);
-  border: 1px solid #1f2937;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  animation: float 4s ease-in-out infinite;
+  font-size: 13px;
+  position: relative;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  width: 40s
+  height: 2px;
+  background: var(--accent);
+  animation: flow 2s infinite;
+}
+.stage:last-child::after { display: none; }
+
+@keyframes flow {
+  from { opacity: .2; }
+  to { opacity: 1; }
 }
 
-.node:nth-child(1) { top: 40px; left: 40px; }
-.node:nth-child(2) { top: 140px; left: 140px; animation-delay: 1s;}
-.node:nth-child(3) { top: 60px; right: 120px; animation-delay: 2s;}
-.node:nth-child(4) { bottom: 40px; right: 40px; animation-delay: 3s;}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-/* ---------- ABOUT ---------- */
-.cards {
+/* ================= AWS ARCH ================= */
+.aws {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
   gap: 20px;
+  margin-top: 40px;
 }
-
-.card {
+.aws-box {
   background: var(--card);
-  padding: 24px;
+  padding: 20px;
   border-radius: 16px;
   border: 1px solid #1f2937;
-  transition: transform .3s;
+  position: relative;
+  overflow: hidden;
+}
+.aws-box::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(120deg, transparent, rgba(56,189,248,.4), transparent);
+  animation: cloud 4s infinite;
+}
+@keyframes cloud {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(50%); }
 }
 
-.card:hover {
-  transform: translateY(-6px);
-}
-
-/* ---------- PROJECTS ---------- */
-.project {
-  margin-top: 20px;
-}
-
-/* ---------- TOOLS ---------- */
-.tools span {
-  display: inline-block;
-  margin: 6px;
-  padding: 8px 14px;
-  background: #020617;
-  border-radius: 999px;
-  font-size: 13px;
-  border: 1px solid #1f2937;
-}
-
-/* ---------- FOOTER ---------- */
+/* ================= FOOTER ================= */
 footer {
-  padding: 40px 20px;
+  padding: 40px;
   text-align: center;
   color: var(--muted);
   border-top: 1px solid #1f2937;
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ================= RESPONSIVE ================= */
 @media(max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
+  .hero { grid-template-columns: 1fr; text-align: center; }
 }
 </style>
 </head>
 
 <body>
 
+<div class="space"></div>
+
 <header>
-  <div class="nav">
+  <nav>
     <strong>DevOps</strong>
     <div>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#tools">Tools</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#aws">AWS</a>
       <a href="#resume">Resume</a>
     </div>
-  </div>
+  </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div>
-    <h1>Hi, I'm a <span>DevOps Engineer</span></h1>
-    <p>
-      I design, automate and scale cloud infrastructure using modern DevOps practices.
-      Passionate about CI/CD, Kubernetes and cloud-native solutions.
-    </p>
-    <a class="btn" href="#projects">View Projects</a>
+    <h1>DevOps <span>Engineer</span></h1>
+    <p>Automating infrastructure, pipelines and cloud platforms using DevOps best practices.</p>
+    <a class="btn" href="#pipeline">Explore Work</a>
   </div>
 
+  <div class="earth-wrapper">
+    <div class="earth"></div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <h2>CI/CD Pipeline</h2>
   <div class="pipeline">
-    <div class="node">Git</div>
-    <div class="node">CI</div>
-    <div class="node">Docker</div>
-    <div class="node">K8s</div>
+    <div class="stage">Git</div>
+    <div class="stage">Build</div>
+    <div class="stage">Docker</div>
+    <div class="stage">Deploy</div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <h2>About Me</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Automation</h3>
-      <p>I automate infrastructure using IaC and pipelines to reduce manual effort.</p>
-    </div>
-    <div class="card">
-      <h3>Cloud</h3>
-      <p>Experience with AWS services, networking, security and scalability.</p>
-    </div>
-    <div class="card">
-      <h3>Reliability</h3>
-      <p>Monitoring, logging and high availability are always part of my designs.</p>
-    </div>
+<section id="aws">
+  <h2>AWS Architecture</h2>
+  <div class="aws">
+    <div class="aws-box">VPC</div>
+    <div class="aws-box">EC2 / EKS</div>
+    <div class="aws-box">Load Balancer</div>
+    <div class="aws-box">Auto Scaling</div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="project card">
-    <h3>End-to-End CI/CD Pipeline</h3>
-    <p>Git → Jenkins → Docker → Kubernetes with zero-downtime deployments.</p>
-  </div>
-  <div class="project card">
-    <h3>AWS Infrastructure with Terraform</h3>
-    <p>VPC, EC2, ALB and autoscaling provisioned via Terraform.</p>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<section id="tools">
-  <h2>DevOps Tools</h2>
-  <div class="tools">
-    <span>Linux</span>
-    <span>Git</span>
-    <span>Jenkins</span>
-    <span>Docker</span>
-    <span>Kubernetes</span>
-    <span>AWS</span>
-    <span>Terraform</span>
-    <span>Ansible</span>
-    <span>Monitoring</span>
-  </div>
-</section>
-
-<!-- RESUME -->
 <section id="resume">
   <h2>Resume</h2>
-  <p>You can download my resume below.</p>
   <a class="btn" href="resume.pdf" download>Download Resume</a>
 </section>
 
 <footer>
-  © 2025 DevOps Engineer • Built with JSP
+  © 2025 DevOps Engineer Portfolio
 </footer>
 
 </body>
