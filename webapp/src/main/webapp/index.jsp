@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>DevOps Engineer Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== THEME ===== */
 :root{
-  --bg1:#0b1020;
-  --bg2:#0f172a;
-  --card:#111827;
+  --bg:#020617;
+  --card:#0b1220;
+  --border:#1f2937;
   --text:#e5e7eb;
   --muted:#9ca3af;
   --accent:#22d3ee;
@@ -21,37 +20,32 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:system-ui, sans-serif;
-  background:radial-gradient(circle at top left,var(--bg2),var(--bg1));
+  background:linear-gradient(180deg,#020617,#020617);
   color:var(--text);
-  scroll-behavior:smooth;
 }
 
 /* ===== NAV ===== */
 header{
   position:fixed;
-  width:100%;
   top:0;
-  z-index:10;
-  background:rgba(11,16,32,.9);
+  width:100%;
+  background:#020617;
+  border-bottom:1px solid var(--border);
 }
-.nav{
+nav{
   max-width:1200px;
   margin:auto;
-  padding:18px 24px;
+  padding:16px 24px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
 }
-.nav strong{color:var(--accent)}
-.nav a{
+nav a{
   color:var(--muted);
-  margin-left:22px;
+  margin-left:20px;
   text-decoration:none;
-  font-size:14px;
 }
-.nav a:hover{color:var(--accent)}
+nav a:hover{color:var(--accent)}
 
-/* ===== SECTIONS ===== */
 section{
   max-width:1200px;
   margin:auto;
@@ -62,331 +56,232 @@ section{
 .hero{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-  padding-top:160px;
-}
-.hero h1{
-  font-size:44px;
-  line-height:1.2;
+  gap:40px;
 }
 .hero h1 span{
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
   color:transparent;
 }
-.hero p{
-  margin-top:18px;
-  color:var(--muted);
-  max-width:520px;
-}
 
-/* ===== BUTTONS ===== */
-.buttons{margin-top:26px}
-.btn{
-  display:inline-block;
-  padding:10px 18px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:14px;
-  margin-right:12px;
-}
-.btn.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-  font-weight:600;
-}
-.btn.outline{
-  border:1px solid var(--accent);
-  color:var(--accent);
-}
-
-/* ===== CODE CARD ===== */
-.code-card{
-  background:linear-gradient(180deg,#0b1220,#020617);
-  border-radius:14px;
-  border:1px solid #1f2937;
+/* ===== CODE ===== */
+.code{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
   padding:18px;
-  height:340px;
-  overflow:hidden;
   font-family:monospace;
   font-size:13px;
-  position:relative;
-}
-
-/* fake editor header */
-.code-header{
-  display:flex;
-  gap:8px;
-  margin-bottom:10px;
-}
-.dot{width:10px;height:10px;border-radius:50%}
-.red{background:#ef4444}
-.yellow{background:#facc15}
-.green{background:#22c55e}
-
-/* ===== SCROLLING CODE ===== */
-.code-scroll{
-  position:absolute;
-  top:50px;
-  left:18px;
-  right:18px;
-  animation:scrollCode 22s linear infinite;
   color:#a5f3fc;
 }
-.code-scroll span{color:#c084fc}
-.code-scroll .res{color:#38bdf8}
-.code-scroll .str{color:#fca5a5}
 
-/* duplicate content creates seamless loop */
-.code-scroll::after{
-  content:attr(data-code);
-  white-space:pre;
+/* ===== PIPELINES ===== */
+.pipeline-wrapper{
+  margin-top:40px;
 }
 
-/* ===== SCROLL ANIMATION ===== */
-@keyframes scrollCode{
-  from{transform:translateY(0)}
-  to{transform:translateY(-50%)}
+.lane-title{
+  color:var(--accent);
+  margin-bottom:10px;
 }
 
-/* ===== PROJECTS ===== */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-  margin-top:30px;
+.pipeline{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px;
+  margin-bottom:40px;
 }
-.project{
+
+.pipe{
   background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  min-width:160px;
+  text-align:center;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.pipe:hover{
+  border-color:var(--accent);
+}
+
+.pipe span{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.arrow{
+  color:var(--accent2);
+  font-size:20px;
+}
+
+/* ===== BLUE GREEN ===== */
+.deploy{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.deploy-box{
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:12px;
-  padding:20px;
-  border:1px solid #1f2937;
+  padding:18px;
+}
+
+.deploy-box h4{
+  color:var(--accent);
+  margin-bottom:6px;
 }
 
 /* ===== FOOTER ===== */
 footer{
+  border-top:1px solid var(--border);
   text-align:center;
-  padding:30px;
+  padding:26px;
   color:var(--muted);
-  border-top:1px solid #1f2937;
 }
 
-/* ===== RESPONSIVE ===== */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}
-  .hero h1{font-size:34px}
+  .deploy{grid-template-columns:1fr}
 }
-
-.pipeline-container{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:12px;
-}
-
-.pipeline-box{
-  background:#020617;
-  border:1px solid #1f2937;
-  border-radius:12px;
-  padding:16px 18px;
-  min-width:150px;
-  text-align:center;
-  transition:.3s ease;
-}
-
-.pipeline-box h4{
-  color:#22d3ee;
-  margin-bottom:6px;
-}
-
-.pipeline-box p{
-  font-size:13px;
-  color:#9ca3af;
-}
-
-.pipeline-box:hover{
-  transform:translateY(-4px);
-  border-color:#22d3ee;
-}
-
-.arrow{
-  font-size:22px;
-  color:#a855f7;
-}
-
-.pipeline-desc{
-  margin-top:24px;
-  max-width:800px;
-  color:#9ca3af;
-  font-size:14px;
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav">
-    <strong>YOUR NAME</strong>
+  <nav>
+    <strong>DEVOPS ENGINEER</strong>
     <div>
-      <a href="#projects">Projects</a>
+      <a href="#projects">Pipelines</a>
       <a href="#resume">Resume</a>
     </div>
-  </div>
+  </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div>
     <h1>Hello,<br>
-      This is <span>Your Name</span><br>
-      I'm a DevOps Engineer.
+      I'm <span>Your Name</span><br>
+      DevOps Engineer
     </h1>
-    <p>
-      Automating cloud infrastructure and CI/CD pipelines
-      using Terraform, Docker, Kubernetes and AWS.
+    <p style="margin-top:14px;color:var(--muted)">
+      CI/CD | Terraform | AWS | Docker | Kubernetes
     </p>
-
-    <div class="buttons">
-      <a href="#projects" class="btn outline">View Projects</a>
-      <a href="resume.pdf" download class="btn primary">Get Resume</a>
-    </div>
   </div>
 
-  <!-- ===== TERRAFORM CODE CARD ===== -->
-  <div class="code-card">
-    <div class="code-header">
-      <div class="dot red"></div>
-      <div class="dot yellow"></div>
-      <div class="dot green"></div>
-    </div>
-
-<pre class="code-scroll" data-code='
+  <div class="code">
+<pre>
 provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_subnet" "public" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
-}
-
-resource "aws_instance" "web" {
-  ami           = "ami-0abcdef123"
-  instance_type = "t3.micro"
-
-  tags = {
-    Name = "devops-server"
-  }
-}
-
-output "public_ip" {
-  value = aws_instance.web.public_ip
-}
-'>
-provider <span>"aws"</span> {
-  region = <span class="str">"us-east-1"</span>
-}
-
-resource <span class="res">"aws_vpc"</span> "main" {
-  cidr_block = <span class="str">"10.0.0.0/16"</span>
-}
-
-resource <span class="res">"aws_subnet"</span> "public" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = <span class="str">"10.0.1.0/24"</span>
-}
-
-resource <span class="res">"aws_instance"</span> "web" {
-  ami           = <span class="str">"ami-0abcdef123"</span>
-  instance_type = <span class="str">"t3.micro"</span>
-
-  tags = {
-    Name = <span class="str">"devops-server"</span>
-  }
-}
-
-output <span>"public_ip"</span> {
-  value = aws_instance.web.public_ip
+resource "aws_eks_cluster" "prod" {
+  name = "eks-prod"
 }
 </pre>
-
   </div>
 </section>
 
+<!-- PIPELINES -->
 <section id="projects">
-  <h2>Projects</h2>
-  <section id="projects">
-  <h2 style="margin-bottom:30px">End-to-End CI/CD Pipelines</h2>
+<h2>End-to-End DevOps Pipelines</h2>
 
-  <div class="pipeline-container">
+<div class="pipeline-wrapper">
 
-    <div class="pipeline-box">
-      <h4>GitHub</h4>
-      <p>Source Code</p>
-    </div>
+<!-- CI LANE -->
+<h3 class="lane-title">CI Pipeline</h3>
+<div class="pipeline">
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">GitHub
+    <span>Source Code</span>
+  </a>
+  <div class="arrow">➜</div>
 
-    <div class="arrow">➜</div>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Jenkins
+    <span>Build & Test</span>
+  </a>
+  <div class="arrow">➜</div>
 
-    <div class="pipeline-box">
-      <h4>Jenkins</h4>
-      <p>CI Build & Test</p>
-    </div>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Docker
+    <span>Image Build</span>
+  </a>
+</div>
 
-    <div class="arrow">➜</div>
+<!-- CD LANE -->
+<h3 class="lane-title">CD Pipeline</h3>
+<div class="pipeline">
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">AWS ECR
+    <span>Image Registry</span>
+  </a>
+  <div class="arrow">➜</div>
 
-    <div class="pipeline-box">
-      <h4>Docker</h4>
-      <p>Image Build</p>
-    </div>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Kubernetes (EKS)
+    <span>Deployment</span>
+  </a>
+  <div class="arrow">➜</div>
 
-    <div class="arrow">➜</div>
+  <a class="pipe" href="YOUR_GITHUB_REPO_URL">Monitoring
+    <span>Prometheus / Grafana</span>
+  </a>
+</div>
 
-    <div class="pipeline-box">
-      <h4>AWS ECR</h4>
-      <p>Image Registry</p>
-    </div>
-
-    <div class="arrow">➜</div>
-
-    <div class="pipeline-box">
-      <h4>Kubernetes (EKS)</h4>
-      <p>Deployment</p>
-    </div>
-
-    <div class="arrow">➜</div>
-
-    <div class="pipeline-box">
-      <h4>Monitoring</h4>
-      <p>Prometheus & Grafana</p>
-    </div>
-
+<!-- TERRAFORM -->
+<h3 class="lane-title">Terraform Infrastructure Pipeline</h3>
+<div class="pipeline">
+  <div class="pipe">Terraform Init
+    <span>Provider Setup</span>
   </div>
+  <div class="arrow">➜</div>
 
-  <div class="pipeline-desc">
-    <p>
-      <strong>Pipeline Flow:</strong><br>
-      Developer pushes code to GitHub → Jenkins triggers CI → Docker image is built →
-      pushed to AWS ECR → deployed to Kubernetes (EKS) →
-      monitored using Prometheus & Grafana.
+  <div class="pipe">Terraform Plan
+    <span>Preview Changes</span>
+  </div>
+  <div class="arrow">➜</div>
+
+  <div class="pipe">Terraform Apply
+    <span>Create AWS Infra</span>
+  </div>
+</div>
+
+<!-- DEPLOYMENT -->
+<h3 class="lane-title">Deployment Strategy</h3>
+<div class="deploy">
+  <div class="deploy-box">
+    <h4>Blue-Green Deployment</h4>
+    <p style="color:var(--muted)">
+      Two environments (Blue & Green). Traffic switches only after
+      successful validation.
     </p>
   </div>
+
+  <div class="deploy-box">
+    <h4>Rolling Update</h4>
+    <p style="color:var(--muted)">
+      Pods updated gradually ensuring zero downtime.
+    </p>
+  </div>
+</div>
+
+</div>
 </section>
 
-</section>
-
+<!-- RESUME -->
 <section id="resume">
-  <h2>Resume</h2>
-  <a href="resume.pdf" download class="btn primary">Download Resume</a>
+<h2>Resume</h2>
+<a href="resume.pdf" download class="pipe" style="display:inline-block">
+Download Resume
+</a>
 </section>
 
 <footer>
-  © 2025 Your Name • DevOps Engineer
+© 2025 DevOps Engineer Portfolio
 </footer>
 
 </body>
