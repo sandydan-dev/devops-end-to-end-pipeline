@@ -7,195 +7,251 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ================= THEME ================= */
-:root {
-  --bg:#020617; --card:#0b1220; --text:#e5e7eb;
-  --muted:#94a3b8; --accent:#38bdf8; --green:#22c55e;
+/* ================= BASE ================= */
+:root{
+  --bg:#020617;
+  --card:#0b1220;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --accent:#38bdf8;
+  --green:#22c55e;
 }
-#theme:checked ~ * {
-  --bg:#f8fafc; --card:#ffffff; --text:#020617;
-  --muted:#334155;
-}
-
-/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui;
+  font-family:system-ui,sans-serif;
   overflow-x:hidden;
 }
 
-/* ================= GALAXY ================= */
-.galaxy{
-  position:fixed; inset:0; z-index:-2;
-  background:
-    radial-gradient(1px 1px at 20% 30%,#fff,transparent),
-    radial-gradient(1px 1px at 70% 80%,#fff,transparent),
-    radial-gradient(2px 2px at 40% 60%,#fff,transparent);
-  animation:warp 40s linear infinite;
-}
-@keyframes warp{
-  from{transform:scale(1)}
-  to{transform:scale(1.4)}
-}
-
-/* ================= HEADER ================= */
+/* ================= HEADER / MENU ================= */
 header{
-  position:fixed; width:100%; z-index:10;
-  background:rgba(2,6,23,.7); backdrop-filter:blur(8px);
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:10;
+  background:rgba(2,6,23,.8);
+  backdrop-filter:blur(8px);
 }
-nav{
-  max-width:1100px; margin:auto; padding:16px;
-  display:flex; justify-content:space-between; align-items:center;
+.nav{
+  max-width:1100px;
+  margin:auto;
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-nav a{color:var(--muted); margin-left:16px; text-decoration:none}
-nav a:hover{color:var(--accent)}
+.nav strong{
+  font-size:18px;
+  letter-spacing:1px;
+}
+.nav a{
+  color:var(--muted);
+  margin-left:20px;
+  text-decoration:none;
+  font-size:14px;
+}
+.nav a:hover{color:var(--accent)}
 
-/* ================= SECTION ================= */
-section{max-width:1100px;margin:auto;padding:120px 20px}
+/* ================= SECTIONS ================= */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:120px 20px;
+}
 
 /* ================= HERO ================= */
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.hero h1{font-size:44px}
+.hero{
+  text-align:center;
+  padding-top:160px;
+}
+.hero h1{
+  font-size:42px;
+}
 .hero span{color:var(--accent)}
-.btn{
-  display:inline-block;margin-top:20px;padding:12px 22px;
-  background:linear-gradient(135deg,var(--accent),var(--green));
-  color:#000;border-radius:8px;text-decoration:none;font-weight:600;
+.hero p{
+  margin-top:14px;
+  color:var(--muted);
 }
 
-/* ================= EARTH ================= */
-.earth-wrap{perspective:800px}
-.earth{
-  width:260px;height:260px;border-radius:50%;margin:auto;
-  background:radial-gradient(circle at 30% 30%,#60a5fa,#1e3a8a 60%,#020617);
-  box-shadow:0 0 40px var(--accent);
-  animation:spin 18s linear infinite;
+/* ================= SLIDER ================= */
+.slider{
+  margin-top:60px;
+  overflow:hidden;
+  position:relative;
 }
-.earth:before{
-  content:"";position:absolute;inset:0;border-radius:50%;
-  background:repeating-linear-gradient(to right,
-    rgba(255,255,255,.15) 0 2px,transparent 4px 10px);
+.slides{
+  display:flex;
+  width:600%;
+  animation:slide 24s infinite;
 }
-@keyframes spin{to{transform:rotateY(360deg)}}
+.slide{
+  width:100%;
+  flex-shrink:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.card{
+  background:var(--card);
+  border:1px solid #1f2937;
+  border-radius:20px;
+  width:320px;
+  height:200px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 0 40px rgba(56,189,248,.15);
+}
+.card h3{
+  margin-bottom:10px;
+  color:var(--accent);
+}
+.card p{
+  font-size:14px;
+  color:var(--muted);
+  text-align:center;
+  max-width:260px;
+}
 
-/* ================= PIPELINE ================= */
-.pipeline{display:flex;justify-content:space-between;margin-top:40px}
+/* ================= SLIDE ANIMATION ================= */
+@keyframes slide{
+  0%{transform:translateX(0%)}
+  16%{transform:translateX(0%)}
+
+  20%{transform:translateX(-100%)}
+  36%{transform:translateX(-100%)}
+
+  40%{transform:translateX(-200%)}
+  56%{transform:translateX(-200%)}
+
+  60%{transform:translateX(-300%)}
+  76%{transform:translateX(-300%)}
+
+  80%{transform:translateX(-400%)}
+  96%{transform:translateX(-400%)}
+
+  100%{transform:translateX(0%)}
+}
+
+/* ================= PIPELINE FLOW ================= */
+.flow{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 .stage{
-  width:110px;height:70px;background:var(--card);border-radius:12px;
-  display:flex;align-items:center;justify-content:center;position:relative;
+  background:var(--card);
+  border-radius:12px;
+  padding:14px 20px;
+  position:relative;
+  font-size:13px;
 }
 .stage:after{
-  content:"";position:absolute;right:-40px;width:40px;height:2px;
+  content:"";
+  position:absolute;
+  right:-40px;
+  top:50%;
+  width:40px;
+  height:2px;
   background:linear-gradient(90deg,transparent,var(--accent),transparent);
   animation:flow 1.5s infinite;
 }
 .stage:last-child:after{display:none}
-@keyframes flow{from{opacity:.2}to{opacity:1}}
-
-/* ================= K8s MESH ================= */
-.mesh{
-  position:relative;height:260px;margin-top:40px;
+@keyframes flow{
+  from{opacity:.2}
+  to{opacity:1}
 }
-.node{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--accent);position:absolute;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(56,189,248,.6)}
-  100%{box-shadow:0 0 0 14px transparent}
-}
-
-/* ================= AWS FLOW ================= */
-.aws{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.aws-box{
-  background:var(--card);padding:20px;border-radius:16px;
-  border:1px solid #1f2937;position:relative;overflow:hidden;
-}
-.aws-box:before{
-  content:"";position:absolute;inset:-100%;
-  background:linear-gradient(120deg,transparent,rgba(56,189,248,.4),transparent);
-  animation:cloud 4s infinite;
-}
-@keyframes cloud{to{transform:translateX(60%)}}
-
-/* ================= FOOTER ================= */
-footer{text-align:center;padding:40px;color:var(--muted)}
-
-/* ================= TOGGLE ================= */
-.toggle{cursor:pointer;font-size:14px;color:var(--muted)}
 
 /* ================= RESPONSIVE ================= */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;text-align:center}
+@media(max-width:768px){
+  .flow{flex-direction:column;gap:20px}
+  .stage:after{display:none}
 }
 </style>
 </head>
 
 <body>
-<input type="checkbox" id="theme" hidden>
-<div class="galaxy"></div>
 
+<!-- ================= MENU BAR ================= -->
 <header>
-<nav>
-<strong>DevOps</strong>
-<div>
-<label for="theme" class="toggle">🌗 Theme</label>
-<a href="#pipeline">Pipeline</a>
-<a href="#k8s">K8s</a>
-<a href="#aws">AWS</a>
-<a href="#resume">Resume</a>
-</div>
-</nav>
+  <div class="nav">
+    <strong>DevOps</strong>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
 </header>
 
-<section class="hero">
-<div>
-<h1>DevOps <span>Engineer</span></h1>
-<p>Cloud • CI/CD • Kubernetes • Automation</p>
-<a class="btn" href="#pipeline">Explore</a>
-</div>
-<div class="earth-wrap"><div class="earth"></div></div>
+<!-- ================= HERO ================= -->
+<section id="home" class="hero">
+  <h1>DevOps <span>Engineer</span></h1>
+  <p>CI/CD • Docker • Kubernetes • Cloud Automation</p>
+
+  <!-- ================= SLIDER ================= -->
+  <div class="slider">
+    <div class="slides">
+      <div class="slide">
+        <div class="card">
+          <h3>Source Code</h3>
+          <p>GitHub repository triggers the CI pipeline automatically</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="card">
+          <h3>CI Build</h3>
+          <p>Jenkins builds, tests and validates application code</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="card">
+          <h3>Docker Image</h3>
+          <p>Application packaged as a versioned Docker image</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="card">
+          <h3>Container Registry</h3>
+          <p>Images pushed to Docker Hub / ECR securely</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="card">
+          <h3>Kubernetes Deploy</h3>
+          <p>Rolling deployment to Kubernetes cluster</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ================= PIPELINE FLOW ================= -->
 <section id="pipeline">
-<h2>CI/CD Pipeline</h2>
-<div class="pipeline">
-<div class="stage">Git</div>
-<div class="stage">Build</div>
-<div class="stage">Docker</div>
-<div class="stage">Deploy</div>
-</div>
+  <h2>DevOps Pipeline Flow</h2>
+  <div class="flow">
+    <div class="stage">Git</div>
+    <div class="stage">Jenkins</div>
+    <div class="stage">Docker</div>
+    <div class="stage">Registry</div>
+    <div class="stage">Kubernetes</div>
+  </div>
 </section>
 
-<section id="k8s">
-<h2>Kubernetes Mesh</h2>
-<div class="mesh">
-<div class="node" style="top:40%;left:20%"></div>
-<div class="node" style="top:20%;left:50%"></div>
-<div class="node" style="top:60%;left:70%"></div>
-<div class="node" style="top:50%;left:40%"></div>
-</div>
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p style="color:var(--muted)">Email: devops@example.com</p>
+  <p style="color:var(--muted)">Mobile: +91 XXXXXXXX</p>
 </section>
 
-<section id="aws">
-<h2>AWS Architecture</h2>
-<div class="aws">
-<div class="aws-box">VPC</div>
-<div class="aws-box">EC2 / EKS</div>
-<div class="aws-box">Load Balancer</div>
-<div class="aws-box">Auto Scaling</div>
-</div>
-</section>
-
-<section id="resume">
-<h2>Resume</h2>
-<a class="btn" href="resume.pdf" download>Download Resume</a>
-</section>
-
-<footer>© 2025 DevOps Engineer • Pure CSS Portfolio</footer>
 </body>
 </html>
 
