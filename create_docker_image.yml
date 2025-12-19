@@ -1,0 +1,34 @@
+---
+- hosts: ansible
+  become: true
+
+  tasks:
+
+    - name: if container running then stop
+      command: docker stop register
+      ignore_errors: yes
+
+    - name: remove container
+      command: docker rm register
+      ignore_errors: yes
+
+    - name: remove old docker images
+      command: docker rmi regapp:latest
+      ignore_errors: yes
+
+    - name: create docker image
+      command: docker build -t regapp .
+
+      args:
+        chdir: /opt/docker/devops-end-to-end-pipeline
+
+
+    - name: docker tag image
+      command: docker tag regapp sandeep452/regapp:latest
+
+    - name: push docker image to docker hub
+      command: docker push sandeep452/regapp:latest
+
+    - name: remove dangling images (same images)
+      command: docker image prune -f
+
