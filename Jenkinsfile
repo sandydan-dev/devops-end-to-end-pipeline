@@ -24,13 +24,11 @@ pipeline {
         }
 
         stage("SonarCloud Analysis") {
-            environment {
-                scannerHome = tool "sandy-sonar-scanner"
-            }
+         
             steps {
                 withSonarQubeEnv("sonar-server") {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+                    sh "sonar-scanner"
+               }
             }
         }
     }
