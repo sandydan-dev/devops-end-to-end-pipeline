@@ -1,13 +1,12 @@
-pipeline{
-    stages {
+pipeline {
+    agent any
 
-        stage("stage 1") {
+    stages {
+        stage('Stage 1') {
             steps {
-                echo "Hello World"
+                echo 'Hello World, this is Jenkinsfile'
             }
         }
-
-      
-
     }
 }
+
