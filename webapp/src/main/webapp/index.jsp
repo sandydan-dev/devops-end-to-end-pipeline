@@ -1,189 +1,283 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sandy Dan Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DevOps Engineer | Portfolio</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-/* ================= GLOBAL ================= */
-* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0b0f14;
+  --card: #121822;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #38bdf8;
+  --accent2: #22c55e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
-    color:#fff;
-    background:#0f2027;
-    overflow-x:hidden;
-    scroll-behavior: smooth;
+  background: radial-gradient(circle at top, #111827, var(--bg));
+  color: var(--text);
+  scroll-behavior: smooth;
 }
 
-/* ================= BACKGROUND PARTICLES ================= */
-.background {
-    position: fixed; top:0; left:0;
-    width:100%; height:100%;
-    z-index:-1;
-    overflow:hidden;
-}
-.particle {
-    position:absolute; border-radius:50%;
-    opacity:0.2;
-    background: linear-gradient(45deg,#00eaff,#ff00ff);
-    animation: float 30s linear infinite;
-}
-@keyframes float {
-    0% { transform: translateY(0) translateX(0) scale(1); }
-    50% { transform: translateY(-1000px) translateX(500px) scale(1.3); }
-    100% { transform: translateY(0) translateX(0) scale(1); }
+/* ---------- HEADER ---------- */
+header {
+  position: fixed;
+  width: 100%;
+  background: rgba(11,15,20,0.7);
+  backdrop-filter: blur(10px);
+  z-index: 100;
 }
 
-/* ================= NAVBAR ================= */
-.navbar {
-    display:flex; justify-content: space-between;
-    padding:20px 50px; position: fixed; width:100%; z-index:10;
+.nav {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.logo { font-size:24px; font-weight:700; letter-spacing:1px; }
-.nav-links a {
-    margin-left:30px; text-decoration:none; color:#fff; font-weight:400; transition:0.3s; position:relative;
-}
-.nav-links a::after {
-    content:""; position:absolute; width:0; height:2px; left:0; bottom:-4px; background:#00eaff; transition:0.3s;
-}
-.nav-links a:hover::after { width:100%; }
 
-/* ================= HERO ================= */
+.nav a {
+  color: var(--muted);
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 110px 20px 80px;
+}
+
+/* ---------- HERO ---------- */
 .hero {
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    height:100vh; text-align:center; padding:0 20px; overflow:hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
 }
+
 .hero h1 {
-    font-size:56px; font-weight:700; margin-bottom:20px;
-    opacity:0; transform:translateY(-30px); animation: fadeSlide 1s forwards 0.5s;
+  font-size: 42px;
+  line-height: 1.2;
 }
-.hero h1 span { color:#00eaff; }
+
+.hero span {
+  color: var(--accent);
+}
+
 .hero p {
-    font-size:20px; opacity:0; transform:translateY(-20px); max-width:600px; margin-bottom:30px;
-    animation: fadeSlide 1s forwards 1s;
+  margin: 20px 0;
+  color: var(--muted);
 }
-.btn-resume {
-    padding:14px 32px; border:none; background:#00eaff; color:#000;
-    font-size:16px; font-weight:600; border-radius:30px; cursor:pointer; text-decoration:none;
-    transition:0.3s, box-shadow 0.3s;
-    opacity:0; transform: translateY(-10px); animation: fadeSlide 1s forwards 1.5s;
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
 }
-.btn-resume:hover { transform: scale(1.1); box-shadow:0 0 20px #00eaff,0 0 40px #ff00ff; }
 
-/* ================= SECTIONS ================= */
-.section { padding:100px 20px; text-align:center; opacity:0; transform:translateY(50px); transition: all 1s ease-out; }
-.section.visible { opacity:1; transform:translateY(0); }
-.section h2 { font-size:36px; margin-bottom:40px; }
-.section p { max-width:700px; margin:0 auto; font-size:18px; opacity:0.85; line-height:1.6; }
-
-/* ================= PROJECTS PIPELINE ================= */
+/* ---------- ANIMATION PANEL ---------- */
 .pipeline {
-    display:flex; justify-content:center; align-items:center; gap:30px; flex-wrap:wrap; margin-top:30px;
-}
-.stage {
-    position:relative; padding:20px 40px; border-radius:20px;
-    background: rgba(0,255,255,0.1); border:2px solid #00eaff;
-    font-weight:600; letter-spacing:1px;
-    animation: pulse 2s infinite alternate;
-}
-.stage::after {
-    content:""; position:absolute; width:50px; height:4px; background:#00eaff;
-    top:50%; right:-50px; transform:translateY(-50%);
-}
-.stage:last-child::after { display:none; }
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px #00eaff; }
-    50% { box-shadow: 0 0 20px #00eaff; }
-    100% { box-shadow: 0 0 10px #00eaff; }
+  position: relative;
+  height: 260px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  overflow: hidden;
 }
 
-/* ================= FOOTER ================= */
-.footer { text-align:center; padding:20px; opacity:0.6; }
+.node {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  animation: float 4s ease-in-out infinite;
+}
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeSlide { to { opacity:1; transform:translateY(0); } }
+.node:nth-child(1) { top: 40px; left: 40px; }
+.node:nth-child(2) { top: 140px; left: 140px; animation-delay: 1s;}
+.node:nth-child(3) { top: 60px; right: 120px; animation-delay: 2s;}
+.node:nth-child(4) { bottom: 40px; right: 40px; animation-delay: 3s;}
 
-/* ================= RESPONSIVE ================= */
-@media(max-width:768px){
-    .hero h1 { font-size:40px; }
-    .hero p { font-size:16px; }
-    .pipeline { flex-direction:column; gap:20px; }
-    .stage::after { display:none; }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ---------- ABOUT ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #1f2937;
+  transition: transform .3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* ---------- PROJECTS ---------- */
+.project {
+  margin-top: 20px;
+}
+
+/* ---------- TOOLS ---------- */
+.tools span {
+  display: inline-block;
+  margin: 6px;
+  padding: 8px 14px;
+  background: #020617;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid #1f2937;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid #1f2937;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<!-- Particle Background -->
-<div class="background">
-    <% for(int i=0;i<30;i++){ %>
-        <div class="particle" style="width:<%=5+Math.random()*15%>px; height:<%=5+Math.random()*15%>px; top:<%=Math.random()*100%>%; left:<%=Math.random()*100%>%; animation-duration:<%=20+Math.random()*20%>s;"></div>
-    <% } %>
-</div>
-
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">Sandepp Dan</div>
-    <div class="nav-links">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+<header>
+  <div class="nav">
+    <strong>DevOps</strong>
+    <div>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#tools">Tools</a>
+      <a href="#resume">Resume</a>
     </div>
-</div>
+  </div>
+</header>
 
 <!-- HERO -->
-<div id="hero" class="hero">
-    <h1>Hello, I'm <span>Sandeep Dan</span></h1>
-    <p>I am a DevOps & Cloud enthusiast building scalable, automated, and reliable infrastructure with CI/CD, Docker, Kubernetes, and AWS.</p>
-    <a href="resume.pdf" download class="btn-resume">Download Resume</a>
-</div>
+<section class="hero">
+  <div>
+    <h1>Hi, I'm a <span>DevOps Engineer</span></h1>
+    <p>
+      I design, automate and scale cloud infrastructure using modern DevOps practices.
+      Passionate about CI/CD, Kubernetes and cloud-native solutions.
+    </p>
+    <a class="btn" href="#projects">View Projects</a>
+  </div>
+
+  <div class="pipeline">
+    <div class="node">Git</div>
+    <div class="node">CI</div>
+    <div class="node">Docker</div>
+    <div class="node">K8s</div>
+  </div>
+</section>
 
 <!-- ABOUT -->
-<div id="about" class="section">
-    <h2>About Me</h2>
-    <p>I specialize in cloud automation, container orchestration, and CI/CD pipelines. My goal is to make infrastructure reliable, secure, and scalable, helping businesses accelerate software delivery.</p>
-</div>
+<section id="about">
+  <h2>About Me</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Automation</h3>
+      <p>I automate infrastructure using IaC and pipelines to reduce manual effort.</p>
+    </div>
+    <div class="card">
+      <h3>Cloud</h3>
+      <p>Experience with AWS services, networking, security and scalability.</p>
+    </div>
+    <div class="card">
+      <h3>Reliability</h3>
+      <p>Monitoring, logging and high availability are always part of my designs.</p>
+    </div>
+  </div>
+</section>
 
 <!-- PROJECTS -->
-<div id="projects" class="section">
-    <h2>Projects & CI/CD Pipeline</h2>
-    <div class="pipeline">
-        <div class="stage">CODE</div>
-        <div class="stage">BUILD</div>
-        <div class="stage">TEST</div>
-        <div class="stage">DEPLOY</div>
-        <div class="stage">MONITOR</div>
-    </div>
-    <p style="margin-top:30px;">This pipeline represents a continuous workflow of development, testing, deployment, and monitoring in DevOps projects.</p>
-</div>
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="project card">
+    <h3>End-to-End CI/CD Pipeline</h3>
+    <p>Git → Jenkins → Docker → Kubernetes with zero-downtime deployments.</p>
+  </div>
+  <div class="project card">
+    <h3>AWS Infrastructure with Terraform</h3>
+    <p>VPC, EC2, ALB and autoscaling provisioned via Terraform.</p>
+  </div>
+</section>
 
-<!-- CONTACT -->
-<div id="contact" class="section">
-    <h2>Contact</h2>
-    <p>Email: sandy@example.com | Phone: +91 9876543210</p>
-</div>
+<!-- TOOLS -->
+<section id="tools">
+  <h2>DevOps Tools</h2>
+  <div class="tools">
+    <span>Linux</span>
+    <span>Git</span>
+    <span>Jenkins</span>
+    <span>Docker</span>
+    <span>Kubernetes</span>
+    <span>AWS</span>
+    <span>Terraform</span>
+    <span>Ansible</span>
+    <span>Monitoring</span>
+  </div>
+</section>
 
-<!-- FOOTER -->
-<div class="footer">
-    © 2025 Sandy Dan | Designed with JSP & CSS
-</div>
+<!-- RESUME -->
+<section id="resume">
+  <h2>Resume</h2>
+  <p>You can download my resume below.</p>
+  <a class="btn" href="resume.pdf" download>Download Resume</a>
+</section>
 
-<script>
-// Scroll-triggered fade-in sections
-const sections = document.querySelectorAll('.section');
-function revealSections(){
-    const triggerBottom = window.innerHeight * 0.85;
-    sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if(top < triggerBottom){ section.classList.add('visible'); }
-    });
-}
-window.addEventListener('scroll', revealSections);
-window.addEventListener('load', revealSections);
-</script>
+<footer>
+  © 2025 DevOps Engineer • Built with JSP
+</footer>
 
 </body>
 </html>
